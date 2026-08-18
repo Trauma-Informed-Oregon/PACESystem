@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b5b60">
+  <meta name="description" content="P.A.C.E. Starter Pack, a Trauma Informed Workforce Wellness team practice from Trauma Informed Oregon.">
+  <title>P.A.C.E. Starter Pack | Trauma Informed Oregon</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/pace-192.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="assets/pace-192.png">
+  <link rel="stylesheet" href="app.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <button class="brand-link" type="button" data-view="home" aria-label="P.A.C.E. Starter Pack home">
+        <img src="assets/tio-logo.png" class="tio-logo" alt="Trauma Informed Oregon">
+        <span class="program-name">Trauma Informed Workforce Wellness</span>
+      </button>
+
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="menu-lines" aria-hidden="true"></span>
+        <span>Menu</span>
+      </button>
+
+      <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
+        <button type="button" data-view="home" aria-current="page">Starter Pack</button>
+        <button type="button" data-view="organizations">For Organizations</button>
+        <button type="button" data-view="about">About</button>
+        <button type="button" data-view="accessibility">Accessibility</button>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <section id="view-home" class="view active" aria-labelledby="home-title">
+      <div class="page home-page">
+        <div class="home-intro">
+          <p class="kicker">Starter Pack</p>
+          <h1 id="home-title">P.A.C.E.</h1>
+          <p class="title-line">Collective Steadiness</p>
+          <div class="start-copy">
+            <p>Pick one activity from each step.</p>
+            <p>Run them in order.</p>
+            <p>Keep the whole thing under 10 minutes.</p>
+          </div>
+          <div class="home-actions">
+            <button type="button" class="button primary" id="build-starter">Build today’s sequence</button>
+            <button type="button" class="button secondary" id="run-starter">Use starter sequence</button>
+          </div>
+          <p class="plain-note">Voluntary participation. No personal disclosure required.</p>
+        </div>
+
+        <div class="pace-map" aria-label="P.A.C.E. has four steps: Presence, Attune, Connect, Energy">
+          <div class="pace-map-item presence">
+            <span class="pace-letter" aria-hidden="true">P</span>
+            <div><strong>Presence</strong><span>Notice the room</span></div>
+            <button class="info-button" type="button" data-info="presence" aria-label="Why Presence is first" aria-expanded="false">i</button>
+          </div>
+          <div class="pace-map-item attune">
+            <span class="pace-letter" aria-hidden="true">A</span>
+            <div><strong>Attune</strong><span>Notice capacity</span></div>
+            <button class="info-button" type="button" data-info="attune" aria-label="Why Attune is second" aria-expanded="false">i</button>
+          </div>
+          <div class="pace-map-item connect">
+            <span class="pace-letter" aria-hidden="true">C</span>
+            <div><strong>Connect</strong><span>Do something together</span></div>
+            <button class="info-button" type="button" data-info="connect" aria-label="Why Connect is third" aria-expanded="false">i</button>
+          </div>
+          <div class="pace-map-item energy">
+            <span class="pace-letter" aria-hidden="true">E</span>
+            <div><strong>Energy</strong><span>Set pace and limits</span></div>
+            <button class="info-button" type="button" data-info="energy" aria-label="Why Energy is fourth" aria-expanded="false">i</button>
+          </div>
+        </div>
+
+        <div class="info-panel" id="home-info" hidden aria-live="polite"></div>
+
+        <section class="how-section" aria-labelledby="how-title">
+          <h2 id="how-title">How it works</h2>
+          <ol class="how-list">
+            <li><span>1</span><p>Choose one activity from each step.</p></li>
+            <li><span>2</span><p>Run the four activities in order.</p></li>
+            <li><span>3</span><p>Keep the sequence under 10 minutes.</p></li>
+            <li><span>4</span><p>Use it at the start of a meeting, shift, or team check-in.</p></li>
+          </ol>
+        </section>
+
+        <aside class="org-callout" aria-labelledby="org-callout-title">
+          <div>
+            <h2 id="org-callout-title">Using P.A.C.E. with your organization?</h2>
+            <p>Full access includes the complete activity library, saved team sequences, and facilitator tools.</p>
+          </div>
+          <button type="button" class="button inverted" data-view="organizations">Full access</button>
+        </aside>
+      </div>
+    </section>
+
+    <section id="view-builder" class="view" aria-labelledby="builder-title">
+      <div class="page builder-page">
+        <div class="builder-topbar">
+          <button class="text-button back-home" type="button" data-view="home">← Starter Pack</button>
+          <span id="access-status" class="access-status" hidden>Full access</span>
+        </div>
+
+        <div class="progress" aria-label="Sequence progress">
+          <div class="progress-step" data-step="0"><span>1</span><strong>Presence</strong></div>
+          <div class="progress-rule" aria-hidden="true"></div>
+          <div class="progress-step" data-step="1"><span>2</span><strong>Attune</strong></div>
+          <div class="progress-rule" aria-hidden="true"></div>
+          <div class="progress-step" data-step="2"><span>3</span><strong>Connect</strong></div>
+          <div class="progress-rule" aria-hidden="true"></div>
+          <div class="progress-step" data-step="3"><span>4</span><strong>Energy</strong></div>
+        </div>
+
+        <div class="builder-heading-row">
+          <div>
+            <p class="kicker" id="builder-step-label">Step 1 of 4</p>
+            <h1 id="builder-title">Choose a Presence activity</h1>
+            <p id="builder-category-copy" class="builder-category-copy"></p>
+          </div>
+          <button class="why-category" id="category-info-button" type="button" aria-expanded="false" aria-controls="category-info">Why this step? <span aria-hidden="true">i</span></button>
+        </div>
+        <div id="category-info" class="inline-info" hidden></div>
+
+        <div class="builder-tools" id="full-library-tools" hidden>
+          <label>Find an activity
+            <input id="library-search" type="search" autocomplete="off" placeholder="Search this step">
+          </label>
+          <label>Time
+            <select id="time-filter">
+              <option value="all">Any length</option>
+              <option value="30">30 seconds</option>
+              <option value="60">1 minute or less</option>
+              <option value="120">2 minutes or less</option>
+              <option value="180">3 minutes or less</option>
+            </select>
+          </label>
+        </div>
+
+        <div id="activity-list" class="activity-list" role="group" aria-labelledby="builder-title"></div>
+        <button id="more-activities" class="more-link" type="button" hidden>Browse more activities</button>
+
+        <div class="builder-summary" aria-live="polite">
+          <span id="builder-selected-count">0 of 4 selected</span>
+          <strong id="builder-total">0 minutes</strong>
+        </div>
+
+        <div class="sticky-actions" aria-label="Sequence builder actions">
+          <button id="builder-back" type="button" class="button secondary">Back</button>
+          <button id="builder-next" type="button" class="button primary" disabled>Continue to Attune</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-review" class="view" aria-labelledby="review-title">
+      <div class="page narrow-page">
+        <button class="text-button" type="button" data-view="builder">← Change activities</button>
+        <p class="kicker">Today’s P.A.C.E.</p>
+        <h1 id="review-title">Ready to run</h1>
+        <p class="review-total" id="review-total"></p>
+        <div id="review-list" class="review-list"></div>
+        <div class="review-actions">
+          <button type="button" class="button primary" id="start-run">Start sequence</button>
+          <button type="button" class="button secondary" id="save-sequence">Save on this device</button>
+          <button type="button" class="text-button" id="share-sequence">Share sequence</button>
+        </div>
+        <p class="device-note">Saved sequences stay on this device. P.A.C.E. does not collect participation or wellness data.</p>
+      </div>
+    </section>
+
+    <section id="view-run" class="view run-view" aria-labelledby="run-title">
+      <div class="run-shell">
+        <div class="run-topbar">
+          <button type="button" class="text-button light" id="exit-run">Exit</button>
+          <div id="run-progress-text" class="run-progress-text">1 of 4</div>
+          <button class="run-info-button" id="run-info-button" type="button" aria-expanded="false" aria-controls="run-why">Why?</button>
+        </div>
+        <div class="run-progress-line" aria-hidden="true"><span id="run-progress-fill"></span></div>
+
+        <article class="run-card">
+          <p id="run-category" class="run-category"></p>
+          <h1 id="run-title"></h1>
+          <p id="run-subtitle" class="run-subtitle"></p>
+          <div id="run-instructions" class="run-instructions"></div>
+          <div id="run-why" class="run-why" hidden></div>
+
+          <div class="timer-block">
+            <div id="timer-display" class="timer-display" aria-live="off">00:30</div>
+            <p id="timer-label">30 seconds</p>
+            <button type="button" class="button timer-button" id="timer-toggle">Start timer</button>
+          </div>
+        </article>
+
+        <div class="run-actions">
+          <button type="button" class="button secondary light-control" id="run-skip">Skip</button>
+          <button type="button" class="button primary warm-control" id="run-next">Next activity</button>
+        </div>
+        <div class="sr-only" aria-live="polite" id="timer-announcer"></div>
+      </div>
+    </section>
+
+    <section id="view-complete" class="view" aria-labelledby="complete-title">
+      <div class="page narrow-page complete-page">
+        <p class="kicker">Sequence complete</p>
+        <h1 id="complete-title">That’s it.</h1>
+        <p>You moved through Presence, Attune, Connect, and Energy.</p>
+        <div class="complete-actions">
+          <button type="button" class="button primary" id="run-again">Run it again</button>
+          <button type="button" class="button secondary" id="new-sequence">Build another sequence</button>
+          <button type="button" class="text-button" data-view="home">Back to Starter Pack</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-organizations" class="view" aria-labelledby="organizations-title">
+      <div class="page editorial-page">
+        <p class="kicker">For Organizations</p>
+        <h1 id="organizations-title">Full P.A.C.E. access</h1>
+        <p class="lede">For teams using P.A.C.E. regularly.</p>
+
+        <div class="org-layout">
+          <div>
+            <h2>What full access adds</h2>
+            <ul class="plain-list">
+              <li>Complete P.A.C.E. activity library</li>
+              <li>Search and time filters</li>
+              <li>Saved team sequences on the device you are using</li>
+              <li>Full-screen facilitator mode</li>
+              <li>Quick replacement of any activity</li>
+            </ul>
+            <p>No employee profiles, mood scores, participation tracking, or wellness dashboards.</p>
+          </div>
+
+          <div class="access-box" id="access-box">
+            <div id="locked-access">
+              <h2>Already have access?</h2>
+              <label for="access-code">Organization access code</label>
+              <div class="code-row">
+                <input id="access-code" type="password" autocomplete="one-time-code" spellcheck="false">
+                <button type="button" class="button primary" id="unlock-button">Open full access</button>
+              </div>
+              <p id="access-message" class="form-message" aria-live="polite"></p>
+              <hr>
+              <h3>Need access?</h3>
+              <p>Contact Trauma Informed Oregon and ask about P.A.C.E. Full Access for your organization.</p>
+              <a class="button secondary link-button" href="mailto:info@traumainformedoregon.org?subject=P.A.C.E.%20Full%20Access">Request full access</a>
+            </div>
+            <div id="unlocked-access" hidden>
+              <h2>Full access is open</h2>
+              <p>You can use the complete activity library on this device.</p>
+              <button type="button" class="button primary" id="build-full">Build from full library</button>
+              <button type="button" class="button secondary" id="browse-full">Browse activity library</button>
+              <button type="button" class="text-button" id="lock-full">Remove access from this device</button>
+            </div>
+          </div>
+        </div>
+
+        <section id="saved-sequences-section" class="saved-section" hidden aria-labelledby="saved-title">
+          <h2 id="saved-title">Saved sequences</h2>
+          <div id="saved-sequences" class="saved-list"></div>
+        </section>
+      </div>
+    </section>
+
+    <section id="view-library" class="view" aria-labelledby="library-title">
+      <div class="page editorial-page">
+        <div class="library-heading">
+          <div>
+            <p class="kicker">Full Access</p>
+            <h1 id="library-title">Activity library</h1>
+          </div>
+          <button type="button" class="button primary" id="library-build">Build a sequence</button>
+        </div>
+        <div class="library-controls">
+          <label>Search
+            <input id="all-search" type="search" placeholder="Activity name or instruction">
+          </label>
+          <label>Step
+            <select id="all-category">
+              <option value="all">All four steps</option>
+              <option value="Presence">Presence</option>
+              <option value="Attune">Attune</option>
+              <option value="Connect">Connect</option>
+              <option value="Energy">Energy</option>
+            </select>
+          </label>
+          <label>Time
+            <select id="all-time">
+              <option value="all">Any length</option>
+              <option value="30">30 seconds</option>
+              <option value="60">1 minute or less</option>
+              <option value="120">2 minutes or less</option>
+              <option value="180">3 minutes or less</option>
+            </select>
+          </label>
+        </div>
+        <p id="library-count" class="library-count" aria-live="polite"></p>
+        <div id="library-list" class="library-list"></div>
+      </div>
+    </section>
+
+    <section id="view-about" class="view" aria-labelledby="about-title">
+      <div class="page editorial-page about-page">
+        <p class="kicker">About P.A.C.E.</p>
+        <h1 id="about-title">A short team practice for the start of work</h1>
+        <p class="lede">P.A.C.E. uses four brief steps: Presence, Attune, Connect, and Energy. Teams choose one activity from each step and run them in order.</p>
+
+        <section aria-labelledby="why-order-title">
+          <h2 id="why-order-title">Why this order</h2>
+          <div class="science-rows">
+            <div class="science-row presence"><strong>P&nbsp; Presence</strong><p>Start with the immediate environment. Looking outward gives the brain current information about where you are.</p></div>
+            <div class="science-row attune"><strong>A&nbsp; Attune</strong><p>Notice capacity without asking people to explain or disclose what is behind it.</p></div>
+            <div class="science-row connect"><strong>C&nbsp; Connect</strong><p>Use shared rhythm, timing, attention, or movement without requiring personal content.</p></div>
+            <div class="science-row energy"><strong>E&nbsp; Energy</strong><p>End by making pace, workload, stopping points, or limits part of the work.</p></div>
+          </div>
+        </section>
+
+        <section aria-labelledby="science-title">
+          <h2 id="science-title">Research and practice</h2>
+          <p>P.A.C.E. draws from work on stress physiology, orienting, co-regulation, coordinated action, conservation of resources, interpersonal neurobiology, and trauma-informed care. The activities are kept brief and practical on purpose.</p>
+          <p>The science gives us useful ways to understand what may be happening. It does not mean every activity works the same way for every person or every group.</p>
+        </section>
+
+        <section class="references" aria-labelledby="references-title">
+          <h2 id="references-title">References and foundations</h2>
+          <p class="reference-intro">The P.A.C.E. training materials name the following research and practice foundations.</p>
+          <ul>
+            <li><strong>Stephen Porges</strong>, Polyvagal Theory and autonomic state.</li>
+            <li><strong>Deb Dana</strong>, practice applications of co-regulation and Polyvagal Theory.</li>
+            <li><strong>Giacomo Rizzolatti</strong>, action observation and the mirror-neuron system.</li>
+            <li><strong>Stevan Hobfoll</strong>, Conservation of Resources theory.</li>
+            <li><strong>Joseph LeDoux</strong>, threat processing, fear, and orienting.</li>
+            <li><strong>Daniel Siegel</strong>, interpersonal neurobiology.</li>
+            <li><strong>SAMHSA</strong>, trauma-informed care principles and guidance.</li>
+          </ul>
+        </section>
+
+        <section class="what-not-required" aria-labelledby="not-required-title">
+          <h2 id="not-required-title">What P.A.C.E. does not require</h2>
+          <ul class="plain-list two-column">
+            <li>Personal or emotional disclosure</li>
+            <li>Belief in the process</li>
+            <li>Cameras on for every activity</li>
+            <li>Individual regulation before the group begins</li>
+          </ul>
+        </section>
+      </div>
+    </section>
+
+    <section id="view-accessibility" class="view" aria-labelledby="accessibility-title">
+      <div class="page editorial-page accessibility-page">
+        <p class="kicker">Accessibility</p>
+        <h1 id="accessibility-title">Built for different ways of participating</h1>
+        <p class="lede">P.A.C.E. is designed to meet <strong>WCAG 2.2 Level AA</strong> accessibility standards.</p>
+
+        <div class="accessibility-layout">
+          <section aria-labelledby="access-built-title">
+            <h2 id="access-built-title">In the app</h2>
+            <ul class="plain-list">
+              <li>Keyboard access and visible keyboard focus</li>
+              <li>Screen-reader labels, headings, landmarks, and status messages</li>
+              <li>Text and controls that reflow on smaller screens and at larger text sizes</li>
+              <li>Color is never the only way a step, choice, or status is identified</li>
+              <li>High-contrast text and controls</li>
+              <li>Large touch targets for primary controls</li>
+              <li>Reduced-motion support when the device requests it</li>
+              <li>Timers do not automatically move the group to the next activity</li>
+            </ul>
+          </section>
+          <section aria-labelledby="participation-title">
+            <h2 id="participation-title">In the practice</h2>
+            <ul class="plain-list">
+              <li>Participation is voluntary</li>
+              <li>No personal disclosure is required</li>
+              <li>Many activities work with cameras off</li>
+              <li>Activities can be skipped without explanation</li>
+            </ul>
+          </section>
+        </div>
+
+        <p class="access-note">Accessibility is checked in the final production build as well as during design and development. If something in this app creates a barrier, contact <a href="mailto:info@traumainformedoregon.org">info@traumainformedoregon.org</a>.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>Trauma Informed Oregon</span>
+      <span class="developer-credit">Developed by Steffannie Roaché MS LPC LMHC</span>
+      <button type="button" data-view="accessibility">Accessibility</button>
+    </div>
+  </footer>
+
+  <template id="why-tooltip-template">
+    <div class="tooltip" role="tooltip"></div>
+  </template>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
