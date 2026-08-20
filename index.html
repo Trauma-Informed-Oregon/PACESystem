@@ -6,10 +6,833 @@
   <meta name="theme-color" content="#0b5b60">
   <meta name="description" content="P.A.C.E. Starter Pack, a Trauma Informed Workforce Wellness team practice from Trauma Informed Oregon.">
   <title>P.A.C.E. Starter Pack | Trauma Informed Oregon</title>
-  <link rel="manifest" href="manifest.webmanifest">
-  <link rel="icon" href="assets/pace-192.png" sizes="192x192">
-  <link rel="apple-touch-icon" href="assets/pace-192.png">
-  <link rel="stylesheet" href="app.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
+  <style>
+:root {
+  --ink: #18343a;
+  --ink-2: #3f5054;
+  --muted: #5b6a6d;
+  --paper: #fffdf9;
+  --canvas: #f6f1ea;
+  --line: #d5d2cb;
+  --line-strong: #a9aaa5;
+  --tio: #075f69;
+  --tio-dark: #064a52;
+  --focus: #0a67c7;
+  --presence: #238f86;
+  --presence-dark: #12655f;
+  --attune: #70864f;
+  --attune-dark: #526837;
+  --connect: #dc765e;
+  --connect-dark: #9d4433;
+  --energy: #bf7658;
+  --energy-dark: #82482f;
+  --warm: #ee8b13;
+  --good: #2f6e4c;
+  --danger: #a4382b;
+  --max: 1180px;
+  --tap: 48px;
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--canvas);
+  color: var(--ink);
+  font: 16px/1.5 ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+button, input, select { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { cursor: pointer; }
+button:disabled { cursor: not-allowed; opacity: .45; }
+a { color: var(--tio-dark); }
+img { display: block; max-width: 100%; }
+h1, h2, h3, p { margin-top: 0; }
+h1, h2, h3 { line-height: 1.12; }
+h1 { letter-spacing: -.03em; }
+
+.skip-link {
+  position: fixed;
+  z-index: 9999;
+  left: 12px;
+  top: 12px;
+  transform: translateY(-180%);
+  padding: 12px 16px;
+  background: #fff;
+  color: var(--tio-dark);
+  border: 2px solid var(--tio-dark);
+  border-radius: 6px;
+  font-weight: 700;
+}
+.skip-link:focus { transform: none; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+.sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.site-header {
+  background: var(--paper);
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.header-inner {
+  max-width: var(--max);
+  min-height: 82px;
+  margin: 0 auto;
+  padding: 8px 24px;
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+.brand-link {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  min-height: var(--tap);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+}
+.tio-logo { width: 96px; height: 60px; object-fit: contain; object-position: left center; }
+.program-name {
+  max-width: 190px;
+  color: var(--ink-2);
+  font-size: .86rem;
+  line-height: 1.25;
+  font-weight: 650;
+}
+.site-nav { margin-left: auto; display: flex; align-items: center; gap: 2px; }
+.site-nav button, .site-footer button {
+  min-height: var(--tap);
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  padding: 10px 13px;
+  font-weight: 650;
+}
+.site-nav button:hover, .site-nav button[aria-current="page"] { color: var(--tio-dark); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 8px; }
+.nav-lock-tag { display: inline-block; margin-left: 6px; padding: 1px 6px; border-radius: 3px; background: var(--canvas); border: 1px solid var(--line-strong); color: var(--ink-2); font-size: .65rem; font-weight: 800; letter-spacing: .04em; text-transform: uppercase; vertical-align: 2px; }
+.menu-button { display: none; min-height: var(--tap); border: 1px solid var(--line-strong); background: #fff; color: var(--ink); padding: 8px 12px; border-radius: 6px; align-items: center; gap: 8px; font-weight: 700; }
+.menu-lines, .menu-lines::before, .menu-lines::after { width: 18px; height: 2px; background: currentColor; display: block; position: relative; }
+.menu-lines::before, .menu-lines::after { content: ""; position: absolute; left: 0; }
+.menu-lines::before { top: -6px; }
+.menu-lines::after { top: 6px; }
+
+.view { display: none; }
+.view.active { display: block; }
+.page { max-width: var(--max); margin: 0 auto; padding: 54px 24px 84px; }
+.narrow-page { max-width: 790px; }
+.editorial-page { max-width: 1040px; }
+.kicker { margin-bottom: 8px; color: var(--tio-dark); font-size: .79rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+.lede { max-width: 760px; font-size: 1.22rem; color: var(--ink-2); }
+
+.home-page { padding-top: 60px; }
+.home-intro { max-width: 820px; }
+.home-intro h1 { margin: 0; font-size: clamp(4.2rem, 10vw, 8.2rem); line-height: .88; color: var(--tio-dark); letter-spacing: -.065em; }
+.title-line { margin: 12px 0 30px; font-size: clamp(1.45rem, 3vw, 2.35rem); color: var(--ink); font-weight: 520; }
+.start-copy { max-width: 560px; margin-bottom: 28px; font-size: clamp(1.02rem, 2vw, 1.2rem); }
+.start-copy p { margin-bottom: 3px; }
+.home-actions, .review-actions, .complete-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.button {
+  min-height: var(--tap);
+  border: 2px solid transparent;
+  border-radius: 6px;
+  padding: 10px 18px;
+  font-weight: 760;
+  line-height: 1.2;
+}
+.button.primary { background: var(--tio); color: #fff; border-color: var(--tio); }
+.button.primary:hover { background: var(--tio-dark); border-color: var(--tio-dark); }
+.button.secondary { background: transparent; color: var(--tio-dark); border-color: var(--tio-dark); }
+.button.secondary:hover { background: #edf5f4; }
+.button.inverted { background: #fff; color: var(--tio-dark); border-color: #fff; }
+.button.inverted:hover { background: #f2f6f5; }
+.link-button { display: inline-flex; align-items: center; text-decoration: none; }
+.text-button { min-height: var(--tap); padding: 8px 3px; border: 0; background: transparent; color: var(--tio-dark); font-weight: 720; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.plain-note { margin: 18px 0 0; color: var(--ink-2); font-size: .94rem; }
+
+.pace-map { margin-top: 64px; border-top: 1px solid var(--line-strong); border-bottom: 1px solid var(--line-strong); }
+.pace-map-item { display: grid; grid-template-columns: 62px minmax(0,1fr) 48px; align-items: center; gap: 16px; min-height: 92px; border-bottom: 1px solid var(--line); padding: 12px 0; }
+.pace-map-item:last-child { border-bottom: 0; }
+.pace-letter { font-size: 2.9rem; font-weight: 850; line-height: 1; }
+.pace-map-item strong { display: block; font-size: 1.08rem; }
+.pace-map-item span:not(.pace-letter) { display: block; color: var(--ink-2); margin-top: 2px; }
+.pace-map-item.presence .pace-letter { color: var(--presence-dark); }
+.pace-map-item.attune .pace-letter { color: var(--attune-dark); }
+.pace-map-item.connect .pace-letter { color: var(--connect-dark); }
+.pace-map-item.energy .pace-letter { color: var(--energy-dark); }
+.info-button {
+  width: 44px;
+  height: 44px;
+  justify-self: end;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: var(--paper);
+  color: var(--ink);
+  font: 800 1rem/1 Georgia, serif;
+}
+.info-button:hover, .info-button[aria-expanded="true"] { border-color: var(--tio); color: var(--tio-dark); background: #edf5f4; }
+.info-panel, .inline-info {
+  margin-top: 12px;
+  max-width: 760px;
+  border-left: 4px solid var(--tio);
+  background: #fff;
+  padding: 16px 18px;
+}
+.info-panel p, .inline-info p { margin: 0; }
+
+.how-section { padding-top: 58px; }
+.how-section h2 { font-size: 1.7rem; margin-bottom: 24px; }
+.how-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4,1fr); gap: 26px; }
+.how-list li { border-top: 4px solid var(--tio); padding-top: 13px; }
+.how-list li:nth-child(2) { border-color: var(--attune); }
+.how-list li:nth-child(3) { border-color: var(--connect); }
+.how-list li:nth-child(4) { border-color: var(--energy); }
+.how-list li > span { font-weight: 900; font-size: .9rem; }
+.how-list p { margin: 7px 0 0; color: var(--ink-2); }
+.org-callout { margin-top: 66px; padding: 28px 0; border-top: 1px solid var(--line-strong); border-bottom: 1px solid var(--line-strong); display: flex; align-items: center; justify-content: space-between; gap: 26px; }
+.org-callout h2 { margin-bottom: 6px; }
+.org-callout p { max-width: 650px; margin: 0; color: var(--ink-2); }
+.org-callout .button { background: var(--tio); color: #fff; border-color: var(--tio); }
+
+.builder-page { max-width: 940px; }
+.builder-topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 34px; }
+.access-status { color: var(--good); font-weight: 800; }
+.progress { display: grid; grid-template-columns: auto 1fr auto 1fr auto 1fr auto; align-items: start; margin-bottom: 48px; }
+.progress-step { display: grid; place-items: center; gap: 7px; color: var(--muted); font-size: .75rem; text-transform: uppercase; letter-spacing: .04em; }
+.progress-step span { width: 36px; height: 36px; display: grid; place-items: center; border-radius: 50%; border: 2px solid var(--line-strong); background: var(--paper); font-weight: 850; color: var(--ink); }
+.progress-step.current strong, .progress-step.done strong { color: var(--ink); }
+.progress-step.current span { color: #fff; border-color: var(--tio); background: var(--tio); }
+.progress-step.done span { color: #fff; border-color: var(--good); background: var(--good); }
+.progress-step.done span::after { content: "✓"; }
+.progress-step.done span { font-size: 0; }
+.progress-step.done span::after { font-size: .9rem; }
+.progress-rule { height: 2px; background: var(--line-strong); margin-top: 17px; }
+.builder-heading-row { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 10px; }
+.builder-heading-row h1 { margin-bottom: 10px; font-size: clamp(2.25rem, 5vw, 4.5rem); }
+.builder-category-copy { max-width: 680px; margin: 0; color: var(--ink-2); }
+.why-category { min-height: var(--tap); flex: 0 0 auto; border: 0; background: transparent; color: var(--tio-dark); font-weight: 750; padding: 8px 3px; text-decoration: underline; text-underline-offset: 4px; }
+.why-category span { display: inline-grid; place-items: center; width: 25px; height: 25px; border: 1px solid currentColor; border-radius: 50%; font-family: Georgia, serif; text-decoration: none; }
+.builder-tools, .library-controls { display: grid; grid-template-columns: minmax(0,1fr) minmax(180px,.35fr); gap: 14px; padding: 20px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 28px 0; }
+.builder-tools label, .library-controls label { display: grid; gap: 6px; font-size: .84rem; font-weight: 750; }
+.builder-tools input, .builder-tools select, .library-controls input, .library-controls select, #access-code {
+  width: 100%; min-height: var(--tap); border: 2px solid #858e8e; border-radius: 6px; background: #fff; color: var(--ink); padding: 9px 12px;
+}
+.activity-list { margin-top: 30px; border-top: 1px solid var(--line-strong); }
+.activity-option { position: relative; display: grid; grid-template-columns: minmax(0,1fr) auto auto; align-items: center; gap: 16px; min-height: 116px; padding: 18px 8px; border-bottom: 1px solid var(--line); background: transparent; }
+.activity-option.selected { background: #edf6f4; box-shadow: inset 5px 0 0 var(--presence); padding-left: 16px; }
+.activity-option.attune.selected { background: #f0f3e9; box-shadow: inset 5px 0 0 var(--attune); }
+.activity-option.connect.selected { background: #fbefeb; box-shadow: inset 5px 0 0 var(--connect); }
+.activity-option.energy.selected { background: #f8efeb; box-shadow: inset 5px 0 0 var(--energy); }
+.activity-main-button { min-height: 72px; border: 0; background: transparent; color: var(--ink); padding: 0; text-align: left; }
+.activity-main-button strong { display: block; font-size: 1.12rem; margin-bottom: 4px; }
+.activity-main-button .instruction-preview { display: block; color: var(--ink-2); max-width: 680px; }
+.activity-time { white-space: nowrap; font-size: .86rem; font-weight: 800; color: var(--ink-2); }
+.activity-why-button { min-width: 48px; min-height: 48px; border: 0; background: transparent; color: var(--tio-dark); font-weight: 800; text-decoration: underline; text-underline-offset: 4px; }
+.activity-why { grid-column: 1 / -1; border-left: 4px solid var(--line-strong); padding: 12px 16px; background: #fff; color: var(--ink-2); }
+.activity-why p { margin: 0; }
+.activity-check { display: inline-grid; place-items: center; width: 28px; height: 28px; border: 2px solid var(--line-strong); border-radius: 50%; margin-right: 10px; vertical-align: -7px; color: #fff; }
+.selected .activity-check { background: var(--good); border-color: var(--good); }
+.selected .activity-check::after { content: "✓"; font-size: .8rem; }
+.more-link { min-height: var(--tap); margin: 12px 0; border: 0; background: transparent; color: var(--tio-dark); font-weight: 760; text-decoration: underline; text-underline-offset: 4px; }
+.builder-summary { margin: 24px 0 96px; display: flex; justify-content: space-between; gap: 20px; color: var(--ink-2); }
+.sticky-actions { position: fixed; z-index: 80; left: 0; right: 0; bottom: 0; background: rgba(255,253,249,.98); border-top: 1px solid var(--line-strong); padding: 12px max(18px, calc((100vw - 940px)/2 + 24px)); display: flex; justify-content: space-between; gap: 12px; }
+.sticky-actions .button { min-width: 150px; }
+
+.review-total { color: var(--ink-2); margin-bottom: 28px; }
+.review-list { border-top: 1px solid var(--line-strong); margin-bottom: 28px; }
+.review-row { display: grid; grid-template-columns: 58px minmax(0,1fr) auto; gap: 16px; align-items: start; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.review-letter { font-size: 2rem; font-weight: 900; line-height: 1; }
+.review-row.presence .review-letter { color: var(--presence-dark); }
+.review-row.attune .review-letter { color: var(--attune-dark); }
+.review-row.connect .review-letter { color: var(--connect-dark); }
+.review-row.energy .review-letter { color: var(--energy-dark); }
+.review-row h2 { margin: 0 0 4px; font-size: 1.12rem; }
+.review-row p { margin: 0; color: var(--ink-2); }
+.review-row time { font-weight: 760; white-space: nowrap; }
+.device-note { margin-top: 18px; color: var(--muted); font-size: .88rem; }
+
+.run-view { background: var(--tio-dark); color: #fff; min-height: calc(100vh - 82px); }
+body.run-active .site-header, body.run-active .site-footer { display: none; }
+body.run-active .run-view { min-height: 100vh; }
+.run-shell { max-width: 900px; margin: 0 auto; padding: 24px 24px 48px; }
+.run-topbar { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; }
+.run-topbar .light { justify-self: start; color: #fff; }
+.run-info-button { justify-self: end; min-height: var(--tap); border: 0; background: transparent; color: #fff; font-weight: 750; padding: 8px 0; text-decoration: underline; text-underline-offset: 4px; }
+.run-progress-text { font-weight: 800; }
+.run-progress-line { height: 5px; background: rgba(255,255,255,.25); margin: 14px 0 30px; }
+.run-progress-line span { display: block; height: 100%; width: 25%; background: #fff; transition: width .25s ease; }
+.run-card { background: var(--paper); color: var(--ink); padding: clamp(28px, 6vw, 58px); border-radius: 8px; min-height: 560px; display: flex; flex-direction: column; }
+.run-category { margin: 0 0 8px; font-size: .8rem; font-weight: 850; text-transform: uppercase; letter-spacing: .08em; color: var(--tio-dark); }
+.run-card h1 { font-size: clamp(2.8rem, 7vw, 5.6rem); margin: 0 0 10px; }
+.run-subtitle { color: var(--ink-2); font-size: 1.15rem; margin-bottom: 30px; }
+.run-instructions { font-size: clamp(1.08rem, 2.2vw, 1.35rem); max-width: 760px; white-space: pre-line; }
+.run-why { margin-top: 22px; border-left: 4px solid var(--tio); background: #eef5f4; padding: 14px 16px; color: var(--ink-2); }
+.timer-block { margin-top: auto; padding-top: 36px; display: flex; align-items: center; gap: 18px; flex-wrap: wrap; border-top: 1px solid var(--line); }
+.timer-display { min-width: 118px; font-variant-numeric: tabular-nums; font-size: clamp(2.25rem,5vw,3.8rem); font-weight: 800; line-height: 1; }
+.timer-block p { margin: 0 auto 0 0; color: var(--ink-2); }
+.timer-button { background: var(--ink); color: #fff; border-color: var(--ink); }
+.run-actions { display: flex; justify-content: space-between; gap: 12px; margin-top: 16px; }
+.light-control { color: #fff !important; border-color: #fff !important; }
+.light-control:hover { background: rgba(255,255,255,.1) !important; }
+.warm-control { background: #f19a25 !important; color: #1c2c2f !important; border-color: #f19a25 !important; }
+.warm-control:hover { background: #ffad39 !important; border-color: #ffad39 !important; }
+
+.complete-page { min-height: 60vh; display: flex; flex-direction: column; justify-content: center; }
+.complete-page h1 { font-size: clamp(3.5rem,8vw,6rem); margin-bottom: 10px; }
+
+.org-layout { display: grid; grid-template-columns: minmax(0,1fr) minmax(320px,.8fr); gap: 54px; margin-top: 54px; }
+.org-layout h2 { margin-bottom: 18px; }
+.plain-list { padding-left: 1.25rem; }
+.plain-list li { margin-bottom: 10px; }
+.access-box { border-left: 5px solid var(--tio); padding-left: 28px; align-self: start; }
+.access-box label { display: block; font-weight: 760; margin-bottom: 7px; }
+.code-row { display: grid; gap: 10px; }
+.form-message { min-height: 1.5em; margin-top: 10px; color: var(--danger); font-weight: 650; }
+.access-box hr { border: 0; border-top: 1px solid var(--line); margin: 28px 0; }
+.access-box h3 { margin-bottom: 8px; }
+#unlocked-access .button { width: 100%; margin-bottom: 8px; }
+.saved-section { margin-top: 66px; padding-top: 32px; border-top: 1px solid var(--line-strong); }
+.saved-list { border-top: 1px solid var(--line); }
+.saved-item { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line); }
+.saved-item strong { display: block; }
+.saved-item small { color: var(--muted); }
+.saved-actions { display: flex; gap: 6px; flex-wrap: wrap; justify-content: end; }
+.saved-actions button { min-height: 44px; border: 1px solid var(--line-strong); background: #fff; color: var(--ink); border-radius: 5px; padding: 7px 10px; }
+
+.library-heading { display: flex; align-items: end; justify-content: space-between; gap: 24px; }
+.library-heading h1 { margin-bottom: 0; font-size: clamp(3rem,7vw,5.5rem); }
+.library-controls { grid-template-columns: minmax(0,1fr) 220px 220px; }
+.library-count { color: var(--muted); }
+.library-list { border-top: 1px solid var(--line-strong); }
+.library-item { display: grid; grid-template-columns: 90px minmax(0,1fr) auto; gap: 16px; align-items: start; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.library-item-category { font-size: .76rem; font-weight: 850; text-transform: uppercase; letter-spacing: .04em; }
+.library-item.presence .library-item-category { color: var(--presence-dark); }
+.library-item.attune .library-item-category { color: var(--attune-dark); }
+.library-item.connect .library-item-category { color: var(--connect-dark); }
+.library-item.energy .library-item-category { color: var(--energy-dark); }
+.library-item h2 { font-size: 1.15rem; margin-bottom: 4px; }
+.library-item p { color: var(--ink-2); margin-bottom: 8px; }
+.library-item details summary { cursor: pointer; color: var(--tio-dark); font-weight: 720; min-height: 44px; display: flex; align-items: center; }
+.library-item time { white-space: nowrap; font-weight: 750; }
+
+.about-page > section, .accessibility-page > .accessibility-layout, .access-note { margin-top: 64px; }
+.about-page h1, .editorial-page > h1 { font-size: clamp(3rem,7vw,5.6rem); max-width: 900px; }
+.about-page h2, .accessibility-page h2 { font-size: 1.6rem; margin-bottom: 22px; }
+.science-rows { border-top: 1px solid var(--line-strong); }
+.science-row { display: grid; grid-template-columns: 180px minmax(0,1fr); gap: 26px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.science-row p { margin: 0; color: var(--ink-2); }
+.science-row.presence strong { color: var(--presence-dark); }
+.science-row.attune strong { color: var(--attune-dark); }
+.science-row.connect strong { color: var(--connect-dark); }
+.science-row.energy strong { color: var(--energy-dark); }
+.references { padding-top: 32px; border-top: 1px solid var(--line-strong); }
+.reference-intro { color: var(--ink-2); }
+.references ul { margin-top: 22px; padding-left: 1.25rem; }
+.references li { margin-bottom: 12px; }
+.two-column { columns: 2; column-gap: 48px; }
+.accessibility-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 54px; }
+.access-note { padding-top: 28px; border-top: 1px solid var(--line-strong); color: var(--ink-2); }
+
+.site-footer { background: var(--paper); border-top: 1px solid var(--line); }
+.footer-inner { max-width: var(--max); min-height: 74px; margin: 0 auto; padding: 12px 24px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px; color: var(--ink-2); font-size: .84rem; }
+.footer-inner button { justify-self: end; font-size: .84rem; }
+.developer-credit { color: #5b6a6d; font-size: .72rem; font-weight: 520; }
+
+.tooltip { position: fixed; z-index: 1000; max-width: 280px; background: #142f34; color: #fff; padding: 10px 12px; border-radius: 5px; font-size: .86rem; box-shadow: 0 6px 24px rgba(0,0,0,.2); }
+
+@media (max-width: 760px) {
+  .header-inner { min-height: 72px; padding: 6px 16px; }
+  .tio-logo { width: 78px; height: 52px; }
+  .program-name { display: none; }
+  .menu-button { display: inline-flex; margin-left: auto; }
+  .site-nav { position: absolute; left: 0; right: 0; top: 72px; display: none; background: var(--paper); border-bottom: 1px solid var(--line-strong); padding: 8px 16px 14px; }
+  .site-nav.open { display: grid; }
+  .site-nav button { text-align: left; padding: 11px 4px; }
+  .site-nav button:hover, .site-nav button[aria-current="page"] { text-underline-offset: 5px; }
+  .page { padding: 36px 18px 72px; }
+  .home-page { padding-top: 42px; }
+  .home-intro h1 { font-size: clamp(4rem,24vw,6.2rem); }
+  .pace-map { margin-top: 48px; }
+  .pace-map-item { grid-template-columns: 48px minmax(0,1fr) 48px; gap: 12px; }
+  .pace-letter { font-size: 2.25rem; }
+  .how-list { grid-template-columns: 1fr 1fr; gap: 22px; }
+  .org-callout { align-items: flex-start; flex-direction: column; }
+  .progress { margin-bottom: 36px; }
+  .progress-step strong { font-size: .64rem; }
+  .progress-step span { width: 32px; height: 32px; }
+  .progress-rule { margin-top: 15px; }
+  .builder-heading-row { align-items: flex-start; flex-direction: column; gap: 4px; }
+  .why-category { align-self: flex-start; }
+  .builder-tools, .library-controls { grid-template-columns: 1fr; }
+  .activity-option { grid-template-columns: minmax(0,1fr) auto; gap: 8px 12px; min-height: 112px; padding: 16px 4px; }
+  .activity-time { grid-column: 1; grid-row: 2; margin-left: 38px; }
+  .activity-why-button { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+  .activity-why { grid-column: 1 / -1; }
+  .sticky-actions { padding: 10px 16px calc(10px + env(safe-area-inset-bottom)); }
+  .sticky-actions .button { min-width: 0; flex: 1; }
+  .builder-summary { margin-bottom: 96px; }
+  .review-row { grid-template-columns: 42px minmax(0,1fr); }
+  .review-row time { grid-column: 2; }
+  .review-actions, .complete-actions { align-items: stretch; flex-direction: column; }
+  .review-actions .button, .complete-actions .button { width: 100%; }
+  .run-shell { padding: 16px 16px 38px; }
+  .run-card { min-height: calc(100vh - 230px); padding: 28px 22px; }
+  .timer-block { display: grid; grid-template-columns: 1fr auto; }
+  .timer-block p { margin: 0; }
+  .timer-button { grid-column: 1 / -1; width: 100%; }
+  .run-actions .button { flex: 1; }
+  .org-layout, .accessibility-layout { grid-template-columns: 1fr; gap: 38px; }
+  .access-box { border-left: 0; border-top: 5px solid var(--tio); padding: 24px 0 0; }
+  .library-heading { align-items: flex-start; flex-direction: column; }
+  .library-heading .button { width: 100%; }
+  .library-item { grid-template-columns: 1fr auto; }
+  .library-item-category { grid-column: 1 / -1; }
+  .science-row { grid-template-columns: 1fr; gap: 7px; }
+  .two-column { columns: 1; }
+  .footer-inner { grid-template-columns: 1fr auto; }
+  .developer-credit { grid-column: 1 / -1; grid-row: 2; text-align: center; }
+}
+
+@media (max-width: 430px) {
+  .how-list { grid-template-columns: 1fr; }
+  .home-actions { align-items: stretch; flex-direction: column; }
+  .home-actions .button { width: 100%; }
+  .progress-step strong { display: none; }
+  .activity-main-button .instruction-preview { font-size: .92rem; }
+  .builder-heading-row h1 { font-size: 2.35rem; }
+  .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; }
+  .developer-credit { order: 3; width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+}
+
+@media (prefers-contrast: more) {
+  :root { --line: #777; --line-strong: #505050; }
+  .button, input, select { border-width: 2px; }
+}
+
+/* 2026 home experience refresh: clearer first-use path, closer to the P.A.C.E. card system */
+:root { --max: 1320px; }
+
+.site-header { border-top: 5px solid #9bcfd0; }
+.header-inner { min-height: 92px; padding-top: 9px; padding-bottom: 9px; }
+.tio-logo { width: 132px; height: 68px; }
+.program-name { max-width: 205px; font-size: .88rem; line-height: 1.3; border-left: 1px solid var(--line); padding-left: 18px; }
+
+.home-page { padding-top: 52px; }
+.home-hero {
+  display: grid;
+  grid-template-columns: minmax(360px,.82fr) minmax(560px,1.18fr);
+  gap: clamp(48px,7vw,96px);
+  align-items: start;
+}
+.home-intro { max-width: 550px; padding-top: 18px; }
+.home-intro .kicker { margin-bottom: 16px; }
+.home-intro h1 {
+  margin: 0;
+  font-size: clamp(4.1rem,6.5vw,6.75rem);
+  line-height: .91;
+  letter-spacing: -.055em;
+  color: var(--tio-dark);
+}
+.home-deck {
+  margin: 28px 0 24px;
+  max-width: 520px;
+  font-size: clamp(1.16rem,1.8vw,1.42rem);
+  line-height: 1.42;
+  color: var(--ink);
+}
+.start-copy {
+  margin: 0 0 28px;
+  padding: 18px 0;
+  border-top: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
+  font-size: 1rem;
+}
+.start-copy p { margin: 0 0 5px; }
+.start-copy p:last-child { margin-bottom: 0; }
+.home-actions { gap: 12px; }
+.home-actions .button { min-height: 54px; }
+.home-primary { padding-left: 22px; padding-right: 22px; }
+.home-primary span { margin-left: 14px; font-size: 1.15rem; }
+
+.starter-board {
+  background: var(--paper);
+  border: 1px solid #b8c2c0;
+  border-top: 8px solid var(--tio);
+  padding: 26px 28px 22px;
+  min-height: 520px;
+}
+.starter-board-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+.starter-board-heading h2 { margin: 0; font-size: clamp(1.65rem,2.4vw,2.15rem); }
+.board-eyebrow { margin: 0 0 4px; color: var(--tio-dark); font-size: .76rem; font-weight: 850; letter-spacing: .08em; text-transform: uppercase; }
+.board-time { font-size: .88rem; font-weight: 760; color: var(--ink-2); white-space: nowrap; }
+.starter-steps { list-style: none; padding: 0; margin: 0; }
+.starter-step {
+  --step-color: var(--tio);
+  display: grid;
+  grid-template-columns: 48px minmax(0,1fr) auto;
+  align-items: center;
+  gap: 14px;
+  min-height: 88px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--line);
+}
+.starter-step.presence { --step-color: var(--presence); }
+.starter-step.attune { --step-color: var(--attune); }
+.starter-step.connect { --step-color: var(--connect); }
+.starter-step.energy { --step-color: var(--energy); }
+.step-no {
+  width: 40px; height: 40px;
+  display: grid; place-items: center;
+  background: var(--step-color);
+  color: #fff;
+  font-weight: 850;
+  font-size: .95rem;
+}
+.step-copy { display: grid; gap: 1px; }
+.step-category { color: var(--step-color); font-size: .72rem; font-weight: 850; text-transform: uppercase; letter-spacing: .07em; }
+.step-copy strong { font-size: 1.08rem; }
+.step-copy small { color: var(--muted); font-size: .84rem; }
+.starter-step .info-button,
+.pace-map-item .info-button {
+  width: auto;
+  height: 44px;
+  min-width: 54px;
+  padding: 0 10px;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: .78rem;
+  font-weight: 780;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.starter-board-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding-top: 18px;
+  font-size: .88rem;
+  color: var(--ink-2);
+}
+.board-run { flex: 0 0 auto; text-decoration: none; font-weight: 800; }
+.board-run:hover { text-decoration: underline; text-underline-offset: 4px; }
+
+#home-info { margin: 20px 0 0 auto; max-width: 720px; }
+
+.starter-pack-section { margin-top: 84px; padding-top: 38px; border-top: 1px solid var(--line-strong); }
+.section-heading-row { display: flex; align-items: end; justify-content: space-between; gap: 28px; margin-bottom: 26px; }
+.section-heading-row h2 { margin: 0; font-size: clamp(2rem,3vw,3rem); }
+.section-heading-row .kicker { margin-bottom: 8px; }
+.pace-map {
+  margin-top: 0;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  border: 1px solid var(--line-strong);
+  background: var(--paper);
+}
+.pace-map-item {
+  --step-color: var(--tio);
+  display: grid;
+  grid-template-columns: 50px minmax(0,1fr);
+  grid-template-rows: auto auto;
+  align-content: start;
+  gap: 10px 12px;
+  min-height: 218px;
+  padding: 24px 20px 18px;
+  border-bottom: 0;
+  border-right: 1px solid var(--line);
+  box-shadow: inset 0 6px 0 var(--step-color);
+}
+.pace-map-item:last-child { border-right: 0; }
+.pace-map-item.presence { --step-color: var(--presence); }
+.pace-map-item.attune { --step-color: var(--attune); }
+.pace-map-item.connect { --step-color: var(--connect); }
+.pace-map-item.energy { --step-color: var(--energy); }
+.pace-map-item .pace-letter { color: var(--step-color) !important; font-size: 3.1rem; grid-row: 1 / span 2; }
+.pace-map-item strong { font-size: 1.1rem; }
+.pace-map-item span:not(.pace-letter) { margin-top: 2px; color: var(--ink-2); }
+.pace-map-item small { display: block; margin-top: 16px; color: var(--muted); line-height: 1.5; }
+.pace-map-item .info-button { grid-column: 2; justify-self: start; align-self: end; margin-top: 4px; background: transparent; }
+
+.org-callout {
+  margin-top: 72px;
+  padding: 34px 38px;
+  display: grid;
+  grid-template-columns: 90px minmax(0,1fr) auto;
+  gap: 28px;
+  border: 0;
+  background: var(--tio-dark);
+  color: #fff;
+}
+.org-callout-number {
+  font-size: 3.8rem;
+  font-weight: 850;
+  line-height: 1;
+  color: #d7ece8;
+  align-self: center;
+}
+.org-callout .kicker { color: #d8efec; }
+.org-callout h2 { color: #fff; font-size: 1.75rem; }
+.org-callout p { color: #e5f0ef; max-width: 720px; }
+.org-callout .button { align-self: center; }
+
+@media (max-width: 1020px) {
+  .home-hero { grid-template-columns: 1fr; gap: 42px; }
+  .home-intro { max-width: 760px; }
+  .starter-board { max-width: 840px; }
+  .pace-map { grid-template-columns: 1fr 1fr; }
+  .pace-map-item:nth-child(2) { border-right: 0; }
+  .pace-map-item:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .org-callout { grid-template-columns: 70px minmax(0,1fr); }
+  .org-callout .button { grid-column: 2; justify-self: start; }
+}
+
+@media (max-width: 760px) {
+  .site-header { border-top-width: 4px; }
+  .header-inner { min-height: 76px; }
+  .tio-logo { width: 96px; height: 58px; }
+  .home-page { padding-top: 34px; }
+  .home-intro { padding-top: 0; }
+  .home-intro h1 { font-size: clamp(3.8rem,18vw,5.4rem); line-height: .92; }
+  .home-deck { margin-top: 22px; }
+  .starter-board { padding: 20px 18px 18px; min-height: auto; }
+  .starter-step { grid-template-columns: 42px minmax(0,1fr) auto; min-height: 82px; gap: 10px; }
+  .step-no { width: 36px; height: 36px; }
+  .starter-board-action { align-items: flex-start; flex-direction: column; gap: 8px; }
+  #home-info { margin-top: 14px; }
+  .starter-pack-section { margin-top: 58px; padding-top: 30px; }
+  .section-heading-row { align-items: flex-start; flex-direction: column; }
+  .section-heading-row .button { width: 100%; }
+  .pace-map { grid-template-columns: 1fr; }
+  .pace-map-item { min-height: 174px; border-right: 0; border-bottom: 1px solid var(--line) !important; }
+  .pace-map-item:last-child { border-bottom: 0 !important; }
+  .org-callout { margin-top: 54px; padding: 28px 22px; grid-template-columns: 1fr; }
+  .org-callout-number { font-size: 3rem; }
+  .org-callout .button { grid-column: 1; width: 100%; }
+}
+
+@media (max-width: 470px) {
+  .home-actions { flex-direction: column; align-items: stretch; }
+  .home-actions .button { width: 100%; }
+  .starter-board-heading { align-items: flex-start; flex-direction: column; gap: 6px; }
+  .starter-step { grid-template-columns: 38px minmax(0,1fr); }
+  .starter-step .info-button { grid-column: 2; justify-self: start; height: 40px; margin-top: 4px; }
+}
+
+/* Contrast-safe category accents: decorative band may use lighter TIO color; text and numbered controls use darker companion colors. */
+.starter-step.presence, .pace-map-item.presence { --step-ink: var(--presence-dark); }
+.starter-step.attune, .pace-map-item.attune { --step-ink: var(--attune-dark); }
+.starter-step.connect, .pace-map-item.connect { --step-ink: var(--connect-dark); }
+.starter-step.energy, .pace-map-item.energy { --step-ink: var(--energy-dark); }
+.step-no { background: var(--step-ink, var(--tio-dark)); }
+.step-category { color: var(--step-ink, var(--tio-dark)); }
+.developer-credit { font-size: .68rem; color: #5b6a6d; font-weight: 500; }
+.org-callout { grid-template-columns: minmax(0,1fr) auto; }
+.org-callout-number { display: none; }
+@media (max-width: 1020px) {
+  .org-callout { grid-template-columns: 1fr; }
+  .org-callout .button { grid-column: 1; justify-self: start; }
+}
+
+/* Builder should read as a guided four-step tool, not a form. */
+.builder-page { --builder-accent: var(--presence-dark); }
+.builder-page[data-category="presence"] { --builder-accent: var(--presence-dark); }
+.builder-page[data-category="attune"] { --builder-accent: var(--attune-dark); }
+.builder-page[data-category="connect"] { --builder-accent: var(--connect-dark); }
+.builder-page[data-category="energy"] { --builder-accent: var(--energy-dark); }
+.builder-heading-row {
+  border-top: 7px solid var(--builder-accent);
+  background: var(--paper);
+  padding: 24px 26px 20px;
+  margin-top: 8px;
+  border-left: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.builder-heading-row .kicker { color: var(--builder-accent); }
+.inline-info { max-width: none; margin-top: 0; border-left-color: var(--builder-accent); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.activity-list { border-top: 0; display: grid; gap: 12px; margin-top: 26px; }
+.activity-option {
+  min-height: 110px;
+  padding: 18px 18px;
+  border: 1px solid var(--line-strong);
+  background: var(--paper);
+}
+.activity-option:hover { border-color: var(--builder-accent); }
+.activity-option.selected {
+  border-color: var(--builder-accent);
+  box-shadow: inset 6px 0 0 var(--builder-accent);
+}
+.activity-option.attune.selected,
+.activity-option.connect.selected,
+.activity-option.energy.selected { box-shadow: inset 6px 0 0 var(--builder-accent); }
+.activity-main-button strong { font-size: 1.18rem; }
+.activity-why { border-left-color: var(--builder-accent); }
+.progress-step.current span { background: var(--builder-accent); border-color: var(--builder-accent); }
+.builder-summary { border-top: 1px solid var(--line); padding-top: 16px; }
+
+@media (max-width: 760px) {
+  .builder-heading-row { padding: 20px 18px 18px; }
+  .activity-option { padding: 15px 14px; }
+}
+
+
+/* Full product review additions */
+.preview-notice{margin:24px 0 34px;padding:13px 16px;border-left:4px solid var(--warm);background:#fff8ec;color:var(--ink-2)}
+.org-feature-grid{margin:38px 0 48px;padding-top:28px;border-top:1px solid var(--line-strong)}
+.org-feature-columns{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 36px;border-top:1px solid var(--line)}
+.org-feature-columns>div{padding:20px 0;border-bottom:1px solid var(--line)}
+.org-feature-columns strong{font-size:1.05rem}.org-feature-columns p{margin:6px 0 0;color:var(--ink-2)}
+.privacy-line{margin-top:18px;font-weight:650;color:var(--ink-2)}
+.org-access-layout{align-items:start}.org-action-stack{display:flex;flex-wrap:wrap;gap:9px;margin:16px 0}.team-setup{padding:22px 0;border-top:1px solid var(--line-strong);border-bottom:1px solid var(--line-strong)}
+.optional{font-weight:400;color:var(--muted);font-size:.9em}.section-heading-row{display:flex;align-items:end;justify-content:space-between;gap:24px}.section-heading-row h2{margin-bottom:0}.section-intro{max-width:760px;color:var(--ink-2)}
+.team-sequences{margin-top:56px}.empty-state{padding:24px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:var(--muted)}
+.saved-item{grid-template-columns:minmax(0,1fr) auto}.saved-actions{display:flex;flex-wrap:wrap;gap:6px}.saved-actions button{min-height:44px;padding:7px 10px;border:1px solid var(--line-strong);background:#fff;color:var(--ink);border-radius:4px;font-weight:700}.saved-actions button:hover{border-color:var(--tio);color:var(--tio-dark)}
+.org-start-preview{margin-top:64px;padding-top:30px;border-top:1px solid var(--line-strong)}
+.launch-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:24px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.launch-strip>div{padding:22px 22px 22px 0}.launch-strip>div+div{padding-left:22px;border-left:1px solid var(--line)}.launch-strip strong{font-size:2rem;color:var(--tio-dark);display:block}.launch-strip span{font-weight:800;display:block;margin:4px 0}.launch-strip small{color:var(--ink-2);font-size:.92rem}
+.shared-sequence-banner{max-width:var(--max);margin:18px auto 0;padding:20px 24px;background:#fff;border:2px solid var(--tio);display:flex;align-items:center;justify-content:space-between;gap:28px}.shared-sequence-banner[hidden]{display:none}.shared-sequence-banner h2{margin-bottom:6px}.shared-sequence-banner p{margin-bottom:0}.shared-banner-actions{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:8px}
+.fit-room{margin:34px 0 42px;padding:24px 0;border-top:1px solid var(--line-strong);border-bottom:1px solid var(--line-strong)}.fit-room h2{font-size:1.7rem;margin-bottom:6px}.fit-room-actions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:20px 0}.fit-choice{min-height:54px;padding:12px 16px;border:2px solid var(--line-strong);background:#fff;color:var(--ink);font-weight:800;text-align:left;border-radius:5px}.fit-choice:hover,.fit-choice[aria-pressed="true"]{border-color:var(--tio);background:#edf5f4;color:var(--tio-dark)}.fit-room-response{min-height:1.5em;color:var(--ink-2);font-weight:650}.complete-lede{font-size:1.15rem;color:var(--ink-2)}
+.resource-header-row{display:flex;align-items:end;justify-content:space-between;gap:24px}.resource-header-row h1{margin-bottom:0}.resource-section{margin-top:58px;padding-top:26px;border-top:1px solid var(--line-strong)}.resource-section h2{font-size:1.75rem}.numbered-steps{list-style:none;padding:0;margin:24px 0 0;counter-reset:step}.numbered-steps li{counter-increment:step;display:grid;grid-template-columns:44px 210px minmax(0,1fr);gap:14px;padding:17px 0;border-top:1px solid var(--line)}.numbered-steps li:before{content:counter(step);font-size:1.45rem;font-weight:900;color:var(--tio-dark)}.numbered-steps span{color:var(--ink-2)}
+.success-signs-title{margin:34px 0 4px;font-size:1.25rem}
+.pilot-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 34px}.pilot-grid>div{padding:18px 0;border-top:1px solid var(--line)}.pilot-grid p{margin:5px 0 0;color:var(--ink-2)}.plain-script{max-width:760px;padding:20px 22px;border-left:4px solid var(--tio);background:#fff}.plain-script p{margin:0;font-size:1.07rem}.situation-list{max-width:820px}.situation-list details{border-top:1px solid var(--line);padding:0}.situation-list details:last-child{border-bottom:1px solid var(--line)}.situation-list summary{cursor:pointer;padding:16px 0;font-weight:800}.situation-list p{padding:0 0 18px;margin:0;color:var(--ink-2)}
+.science-explainer{margin-top:56px;padding-top:28px;border-top:1px solid var(--line-strong)}.science-copy-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:0 34px}.science-copy-grid>div{padding:19px 0;border-top:1px solid var(--line)}.science-copy-grid h3{margin-bottom:7px}.science-copy-grid p{color:var(--ink-2);margin:0}.framework-note{margin-top:24px;padding:18px 20px;border-left:4px solid var(--warm);background:#fff8ec}.reference-list{padding-left:1.4rem;max-width:900px}.reference-list li{padding:8px 0;color:var(--ink-2)}
+.activity-why h4,.run-why h3{margin:0 0 5px;font-size:.95rem}.activity-why p+.why-use{margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}.why-use strong{display:block;margin-bottom:3px;color:var(--ink)}
+.run-why{max-width:760px}.run-why p{margin-bottom:10px}.run-why .why-use{padding-top:10px;border-top:1px solid rgba(255,255,255,.25)}
+@media (max-width:800px){.org-feature-columns,.science-copy-grid,.pilot-grid,.fit-room-actions{grid-template-columns:1fr}.launch-strip{grid-template-columns:1fr}.launch-strip>div+div{padding-left:0;border-left:0;border-top:1px solid var(--line)}.shared-sequence-banner,.section-heading-row,.resource-header-row{align-items:stretch;flex-direction:column}.shared-banner-actions{justify-content:flex-start}.numbered-steps li{grid-template-columns:38px 1fr}.numbered-steps li span{grid-column:2}.org-action-stack{flex-direction:column;align-items:stretch}}
+/* Optional impact check-in (opt-in, device-local) */
+.impact-check { margin: 0 0 42px; padding: 24px 0; border-bottom: 1px solid var(--line-strong); }
+.impact-check h2 { font-size: 1.4rem; margin-bottom: 6px; }
+.impact-check > p { max-width: 720px; color: var(--ink-2); }
+.impact-criteria { font-weight: 650; color: var(--ink) !important; }
+.impact-check-actions { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 18px 0 0; }
+.impact-choice { min-height: 54px; padding: 12px 16px; border: 2px solid var(--line-strong); background: #fff; color: var(--ink); font-weight: 800; text-align: left; border-radius: 5px; }
+.impact-choice:hover, .impact-choice[aria-pressed="true"] { border-color: var(--tio); background: #edf5f4; color: var(--tio-dark); }
+.impact-check-response { min-height: 1.5em; margin-top: 10px; color: var(--ink-2); font-weight: 650; }
+.impact-summary { margin-top: 64px; padding-top: 30px; border-top: 1px solid var(--line-strong); }
+.impact-stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.impact-stats[hidden] { display: none; }
+.impact-stat { padding: 20px 20px 20px 0; }
+.impact-stat + .impact-stat { padding-left: 20px; border-left: 1px solid var(--line); }
+.impact-stat strong { display: block; font-size: 2.1rem; color: var(--tio-dark); line-height: 1.1; }
+.impact-stat span { display: block; margin-top: 4px; color: var(--ink-2); font-weight: 700; font-size: .9rem; }
+.impact-summary-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 20px; }
+
+/* Tablet range (761px to 1020px): the layout previously jumped straight from desktop to phone rules. */
+@media (min-width: 761px) and (max-width: 1020px) {
+  .page { padding: 44px 28px 76px; }
+  .home-intro h1 { font-size: clamp(3.6rem, 9vw, 5.4rem); }
+  .lede { font-size: 1.14rem; }
+  .builder-page { max-width: 100%; }
+  .sticky-actions { padding-left: 28px; padding-right: 28px; }
+  .run-card { min-height: 480px; }
+  .org-layout { grid-template-columns: 1fr; gap: 44px; }
+  .access-box { border-left: 5px solid var(--tio); padding-left: 28px; max-width: 640px; }
+  .accessibility-layout { gap: 40px; }
+  .science-row { grid-template-columns: 150px minmax(0,1fr); }
+  .library-controls { grid-template-columns: minmax(0,1fr) 180px 180px; }
+  .impact-stats { grid-template-columns: repeat(2, 1fr); }
+  .impact-stat:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .impact-stat:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+}
+
+@media (max-width: 760px) {
+  .impact-check-actions { grid-template-columns: 1fr; }
+  .impact-stats { grid-template-columns: 1fr 1fr; }
+  .impact-stat:nth-child(odd) { padding-left: 0; border-left: 0; }
+  .impact-stat:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .impact-summary-actions { flex-direction: column; align-items: stretch; }
+}
+
+/* Larger tap comfort on coarse pointers (phones, tablets), regardless of width. */
+@media (pointer: coarse) {
+  .site-nav button, .text-button, .info-button, .fit-choice, .impact-choice { min-height: 52px; }
+}
+
+@media print{.site-header,.site-footer,.skip-link,.preview-notice,.resource-header-row .button{display:none!important}.view{display:none!important}#view-resources{display:block!important}.resources-page{max-width:none;padding:0!important}.resource-section{break-inside:avoid}.page{padding:0}.resource-header-row{display:block}.resource-header-row h1{font-size:24pt}body{background:#fff;color:#000}}
+
+/* ============================================================
+   THEME LAYER: TIO brand, premium finish.
+   Tokens sampled from the official logo (teal 00A9A7, sky 00A4E4,
+   blue 0069AA, navy 00253B). This layer overrides the base tokens;
+   edit colors here, not above.
+   ============================================================ */
+:root{
+  --ink:#16303c; --ink-2:#42565e; --muted:#5b6e75;
+  --paper:#ffffff; --canvas:#f4f8f9;
+  --line:#dde6e8; --line-strong:#b5c4c8;
+  --tio:#0b6a6f; --tio-dark:#084f54;
+  --navy:#00253b; --sky:#00a4e4; --brand-teal:#00a9a7; --brand-blue:#0069aa;
+  --ray:linear-gradient(90deg,#00a9a7 0%,#2cb6b3 22%,#00a4e4 52%,#0069aa 80%,#00355c 100%);
+  --ray-v:linear-gradient(180deg,#00a9a7 0%,#00a4e4 52%,#0069aa 100%);
+  --radius:12px;
+  --shadow-soft:0 1px 2px rgba(0,37,59,.05),0 10px 30px rgba(0,37,59,.08);
+}
+h1,h2,.run-card h1{font-family:'Fraunces',Georgia,'Times New Roman',serif;font-weight:600;letter-spacing:-.015em}
+.site-header{border-top:0;box-shadow:0 1px 0 var(--line),0 8px 28px rgba(0,37,59,.06)}
+.site-header::before{content:"";display:block;height:6px;background:var(--ray)}
+.header-inner{min-height:98px}
+.tio-logo{width:150px;height:76px}
+.button{border-radius:9px}
+.button.primary{background:var(--tio);border-color:var(--tio)}
+.button.primary:hover{background:var(--tio-dark);border-color:var(--tio-dark)}
+.button.secondary:hover{background:#eaf4f4}
+.home-intro h1{color:var(--navy)}
+.starter-board{border-color:var(--line);border-top:0;border-radius:var(--radius);box-shadow:var(--shadow-soft);padding-top:32px;position:relative;overflow:hidden}
+.starter-board::before{content:"";position:absolute;left:0;right:0;top:0;height:7px;background:var(--ray)}
+.pace-map{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-soft);border-color:var(--line)}
+.org-callout{background:var(--navy);border-radius:var(--radius);box-shadow:var(--shadow-soft);position:relative;overflow:hidden;padding-left:45px}
+.org-callout::before{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;background:var(--ray-v)}
+.builder-heading-row{border-radius:var(--radius) var(--radius) 0 0}
+.inline-info,.info-panel{border-radius:0 10px 10px 0}
+.activity-option{border-radius:10px}
+.builder-tools input,.builder-tools select,.library-controls input,.library-controls select,#access-code,#team-name-input{border-radius:8px;border-color:#9fb1b6}
+.run-view{background:var(--navy)}
+.run-card{border-radius:var(--radius);box-shadow:0 24px 70px rgba(0,0,0,.35)}
+.run-why{background:#f0f7f7}
+.run-progress-line{background:rgba(255,255,255,.18);border-radius:99px;overflow:hidden}
+.shared-sequence-banner{border-radius:var(--radius);box-shadow:var(--shadow-soft)}
+.sticky-actions{background:rgba(255,255,255,.96)}
+.launch-strip strong,.numbered-steps li:before,.impact-stat strong{color:var(--tio-dark)}
+.site-footer{background:var(--navy);border-top:0}
+.footer-inner{color:#cfe0e6}
+.site-footer button{color:#e6f1f5}
+.developer-credit{color:#9db7c2 !important}
+.plain-script{border-radius:0 10px 10px 0}
+.framework-note{border-radius:0 10px 10px 0}
+@media (max-width:760px){.site-header::before{height:5px}.header-inner{min-height:80px}.tio-logo{width:112px;height:60px}.org-callout{padding-left:29px}}
+
+</style>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
@@ -17,7 +840,7 @@
   <header class="site-header">
     <div class="header-inner">
       <button class="brand-link" type="button" data-view="home" aria-label="P.A.C.E. Starter Pack home">
-        <img src="assets/tio-logo.png" class="tio-logo" alt="Trauma Informed Oregon">
+        <img src="data:image/png;base64,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" class="tio-logo" alt="Trauma Informed Oregon">
         <span class="program-name">Trauma Informed Workforce Wellness</span>
       </button>
 
@@ -29,6 +852,7 @@
       <nav id="site-nav" class="site-nav" aria-label="Primary navigation">
         <button type="button" data-view="home" aria-current="page">Starter Pack</button>
         <button type="button" data-view="organizations">For Organizations</button>
+        <button type="button" data-view="resources" id="nav-resources">Get Started<span class="nav-lock-tag" id="nav-resources-tag">Full Access</span></button>
         <button type="button" data-view="about">About</button>
         <button type="button" data-view="accessibility">Accessibility</button>
       </nav>
@@ -36,65 +860,116 @@
   </header>
 
   <main id="main" tabindex="-1">
+    <section id="shared-sequence-banner" class="shared-sequence-banner" hidden aria-labelledby="shared-sequence-title">
+      <div>
+        <p class="kicker">Shared P.A.C.E. sequence</p>
+        <h2 id="shared-sequence-title">A team sent you a sequence</h2>
+        <p id="shared-sequence-summary"></p>
+      </div>
+      <div class="shared-banner-actions">
+        <button type="button" class="button primary" id="open-shared-sequence">Open sequence</button>
+        <button type="button" class="button secondary" id="save-shared-sequence">Save to team sequences</button>
+        <button type="button" class="text-button" id="dismiss-shared-sequence">Dismiss</button>
+      </div>
+    </section>
     <section id="view-home" class="view active" aria-labelledby="home-title">
       <div class="page home-page">
-        <div class="home-intro">
-          <p class="kicker">Starter Pack</p>
-          <h1 id="home-title">P.A.C.E.</h1>
-          <p class="title-line">Collective Steadiness</p>
-          <div class="start-copy">
-            <p>Pick one activity from each step.</p>
-            <p>Run them in order.</p>
-            <p>Keep the whole thing under 10 minutes.</p>
+        <div class="home-hero">
+          <div class="home-intro">
+            <p class="kicker">Trauma Informed Workforce Wellness</p>
+            <h1 id="home-title">P.A.C.E.<br>Starter Pack</h1>
+            <p class="home-deck"><strong>Collective Steadiness.</strong> A short practice for the start of a meeting, shift, supervision, or check-in. It shows the group what it has to work with today, so the plan can match the room.</p>
+            <div class="start-copy" aria-label="How P.A.C.E. works">
+              <p><strong>Choose four.</strong> One activity from each P.A.C.E. step.</p>
+              <p><strong>Run them together.</strong> In order, in under 10 minutes.</p>
+            </div>
+            <div class="home-actions">
+              <button type="button" class="button primary home-primary" id="build-starter">Build today's sequence <span aria-hidden="true">→</span></button>
+              <button type="button" class="button secondary" id="run-starter">Run the starter sequence</button>
+            </div>
+            <p class="plain-note">Participation is voluntary. No personal disclosure is required.</p>
           </div>
-          <div class="home-actions">
-            <button type="button" class="button primary" id="build-starter">Build today’s sequence</button>
-            <button type="button" class="button secondary" id="run-starter">Use starter sequence</button>
-          </div>
-          <p class="plain-note">Voluntary participation. No personal disclosure required.</p>
-        </div>
 
-        <div class="pace-map" aria-label="P.A.C.E. has four steps: Presence, Attune, Connect, Energy">
-          <div class="pace-map-item presence">
-            <span class="pace-letter" aria-hidden="true">P</span>
-            <div><strong>Presence</strong><span>Notice the room</span></div>
-            <button class="info-button" type="button" data-info="presence" aria-label="Why Presence is first" aria-expanded="false">i</button>
-          </div>
-          <div class="pace-map-item attune">
-            <span class="pace-letter" aria-hidden="true">A</span>
-            <div><strong>Attune</strong><span>Notice capacity</span></div>
-            <button class="info-button" type="button" data-info="attune" aria-label="Why Attune is second" aria-expanded="false">i</button>
-          </div>
-          <div class="pace-map-item connect">
-            <span class="pace-letter" aria-hidden="true">C</span>
-            <div><strong>Connect</strong><span>Do something together</span></div>
-            <button class="info-button" type="button" data-info="connect" aria-label="Why Connect is third" aria-expanded="false">i</button>
-          </div>
-          <div class="pace-map-item energy">
-            <span class="pace-letter" aria-hidden="true">E</span>
-            <div><strong>Energy</strong><span>Set pace and limits</span></div>
-            <button class="info-button" type="button" data-info="energy" aria-label="Why Energy is fourth" aria-expanded="false">i</button>
-          </div>
+          <section class="starter-board" aria-labelledby="starter-board-title">
+            <div class="starter-board-heading">
+              <div>
+                <p class="board-eyebrow">Ready now</p>
+                <h2 id="starter-board-title">Starter sequence</h2>
+              </div>
+              <span class="board-time">About 2 minutes</span>
+            </div>
+
+            <ol class="starter-steps">
+              <li class="starter-step presence">
+                <span class="step-no" aria-hidden="true">1</span>
+                <div class="step-copy"><span class="step-category">P · Presence</span><strong>Environmental Scan</strong><small>30 seconds</small></div>
+                <button class="info-button" type="button" data-info="presence" aria-label="Why Presence is first" aria-expanded="false">Why?</button>
+              </li>
+              <li class="starter-step attune">
+                <span class="step-no" aria-hidden="true">2</span>
+                <div class="step-copy"><span class="step-category">A · Attune</span><strong>Meeting Pace</strong><small>30 seconds</small></div>
+                <button class="info-button" type="button" data-info="attune" aria-label="Why Attune is second" aria-expanded="false">Why?</button>
+              </li>
+              <li class="starter-step connect">
+                <span class="step-no" aria-hidden="true">3</span>
+                <div class="step-copy"><span class="step-category">C · Connect</span><strong>Rhythm Together</strong><small>30 seconds</small></div>
+                <button class="info-button" type="button" data-info="connect" aria-label="Why Connect is third" aria-expanded="false">Why?</button>
+              </li>
+              <li class="starter-step energy">
+                <span class="step-no" aria-hidden="true">4</span>
+                <div class="step-copy"><span class="step-category">E · Energy</span><strong>Fist to Five</strong><small>30 seconds</small></div>
+                <button class="info-button" type="button" data-info="energy" aria-label="Why Energy is fourth" aria-expanded="false">Why?</button>
+              </li>
+            </ol>
+            <div class="starter-board-action">
+              <span>Use these four as-is, or build a different sequence.</span>
+              <button type="button" class="text-button board-run" id="run-starter-board">Run these four →</button>
+            </div>
+          </section>
         </div>
 
         <div class="info-panel" id="home-info" hidden aria-live="polite"></div>
 
-        <section class="how-section" aria-labelledby="how-title">
-          <h2 id="how-title">How it works</h2>
-          <ol class="how-list">
-            <li><span>1</span><p>Choose one activity from each step.</p></li>
-            <li><span>2</span><p>Run the four activities in order.</p></li>
-            <li><span>3</span><p>Keep the sequence under 10 minutes.</p></li>
-            <li><span>4</span><p>Use it at the start of a meeting, shift, or team check-in.</p></li>
-          </ol>
+        <section class="starter-pack-section" aria-labelledby="starter-pack-title">
+          <div class="section-heading-row">
+            <div>
+              <p class="kicker">12 core activities</p>
+              <h2 id="starter-pack-title">Choose what fits the room.</h2>
+            </div>
+            <button type="button" class="button secondary" id="build-starter-secondary">Open the sequence builder</button>
+          </div>
+
+          <div class="pace-map" aria-label="P.A.C.E. has four steps: Presence, Attune, Connect, Energy">
+            <article class="pace-map-item presence">
+              <span class="pace-letter" aria-hidden="true">P</span>
+              <div><strong>Presence</strong><span>Notice the room</span><small>Environmental Scan · Feet on Floor · Workspace Check</small></div>
+              <button class="info-button" type="button" data-info="presence" aria-label="Why Presence is first" aria-expanded="false">Why?</button>
+            </article>
+            <article class="pace-map-item attune">
+              <span class="pace-letter" aria-hidden="true">A</span>
+              <div><strong>Attune</strong><span>Notice capacity</span><small>Meeting Pace · One Word Check · Permission Statement</small></div>
+              <button class="info-button" type="button" data-info="attune" aria-label="Why Attune is second" aria-expanded="false">Why?</button>
+            </article>
+            <article class="pace-map-item connect">
+              <span class="pace-letter" aria-hidden="true">C</span>
+              <div><strong>Connect</strong><span>Do something together</span><small>Rhythm Together · Three Movements · Count Together</small></div>
+              <button class="info-button" type="button" data-info="connect" aria-label="Why Connect is third" aria-expanded="false">Why?</button>
+            </article>
+            <article class="pace-map-item energy">
+              <span class="pace-letter" aria-hidden="true">E</span>
+              <div><strong>Energy</strong><span>Set pace and limits</span><small>Fist to Five · One Thing Less · Stop Signal</small></div>
+              <button class="info-button" type="button" data-info="energy" aria-label="Why Energy is fourth" aria-expanded="false">Why?</button>
+            </article>
+          </div>
         </section>
 
         <aside class="org-callout" aria-labelledby="org-callout-title">
           <div>
-            <h2 id="org-callout-title">Using P.A.C.E. with your organization?</h2>
-            <p>Full access includes the complete activity library, saved team sequences, and facilitator tools.</p>
+            <p class="kicker">For organizations</p>
+            <h2 id="org-callout-title">Bring P.A.C.E. to your organization</h2>
+            <p>Full access includes the complete activity library, facilitator tools, and shareable team sequences. No employee wellness tracking.</p>
           </div>
-          <button type="button" class="button inverted" data-view="organizations">Full access</button>
+          <button type="button" class="button inverted" data-view="organizations">See full access</button>
         </aside>
       </div>
     </section>
@@ -159,7 +1034,7 @@
     <section id="view-review" class="view" aria-labelledby="review-title">
       <div class="page narrow-page">
         <button class="text-button" type="button" data-view="builder">← Change activities</button>
-        <p class="kicker">Today’s P.A.C.E.</p>
+        <p class="kicker">Today's P.A.C.E.</p>
         <h1 id="review-title">Ready to run</h1>
         <p class="review-total" id="review-total"></p>
         <div id="review-list" class="review-list"></div>
@@ -168,7 +1043,7 @@
           <button type="button" class="button secondary" id="save-sequence">Save on this device</button>
           <button type="button" class="text-button" id="share-sequence">Share sequence</button>
         </div>
-        <p class="device-note">Saved sequences stay on this device. P.A.C.E. does not collect participation or wellness data.</p>
+        <p class="device-note" id="review-device-note">Saved sequences stay on this device. P.A.C.E. does not collect participation or wellness data.</p>
       </div>
     </section>
 
@@ -206,10 +1081,35 @@
     <section id="view-complete" class="view" aria-labelledby="complete-title">
       <div class="page narrow-page complete-page">
         <p class="kicker">Sequence complete</p>
-        <h1 id="complete-title">That’s it.</h1>
-        <p>You moved through Presence, Attune, Connect, and Energy.</p>
+        <h1 id="complete-title">Take the information with you.</h1>
+        <p class="complete-lede">You moved through Presence, Attune, Connect, and Energy. Before the meeting continues, look at what the group just showed you.</p>
+
+        <section class="fit-room" aria-labelledby="fit-room-title">
+          <h2 id="fit-room-title">Does the plan still fit the room?</h2>
+          <p>Choose what fits. Nothing here is recorded.</p>
+          <div class="fit-room-actions" role="group" aria-label="What should the team do next?">
+            <button type="button" class="fit-choice" data-fit="keep">Keep the plan</button>
+            <button type="button" class="fit-choice" data-fit="slow">Slow the pace</button>
+            <button type="button" class="fit-choice" data-fit="drop">Drop something</button>
+            <button type="button" class="fit-choice" data-fit="stop">Set a stopping point</button>
+          </div>
+          <div id="fit-room-response" class="fit-room-response" aria-live="polite"></div>
+        </section>
+
+        <section class="impact-check" aria-labelledby="impact-check-title">
+          <h2 id="impact-check-title">Was this worth the few minutes?</h2>
+          <p class="impact-criteria">A fair test: did the group learn something it used? If the pace, the plan, or a stopping point changed because of what showed up here, the practice did its job.</p>
+          <p>Completely optional, and never required to keep using P.A.C.E. A yes or no is saved on this device only, so you and your team can see whether the practice is earning its place. Nothing is sent anywhere unless you choose to share it.</p>
+          <div class="impact-check-actions" role="group" aria-label="Was this sequence worth running?">
+            <button type="button" class="impact-choice" data-impact="yes">Yes, keep doing this</button>
+            <button type="button" class="impact-choice" data-impact="unsure">Not sure</button>
+            <button type="button" class="impact-choice" data-impact="no">Not really</button>
+          </div>
+          <div id="impact-check-response" class="impact-check-response" aria-live="polite"></div>
+        </section>
+
         <div class="complete-actions">
-          <button type="button" class="button primary" id="run-again">Run it again</button>
+          <button type="button" class="button primary" id="run-again">Run this sequence again</button>
           <button type="button" class="button secondary" id="new-sequence">Build another sequence</button>
           <button type="button" class="text-button" data-view="home">Back to Starter Pack</button>
         </div>
@@ -217,51 +1117,94 @@
     </section>
 
     <section id="view-organizations" class="view" aria-labelledby="organizations-title">
-      <div class="page editorial-page">
+      <div class="page editorial-page org-page">
         <p class="kicker">For Organizations</p>
-        <h1 id="organizations-title">Full P.A.C.E. access</h1>
-        <p class="lede">For teams using P.A.C.E. regularly.</p>
+        <h1 id="organizations-title">Bring P.A.C.E. to your organization</h1>
+        <p class="lede">The Starter Pack stays open to anyone. Full Access gives teams the complete activity library, facilitator tools, shareable sequences, and a clear way to get started.</p>
 
-        <div class="org-layout">
-          <div>
-            <h2>What full access adds</h2>
-            <ul class="plain-list">
-              <li>Complete P.A.C.E. activity library</li>
-              <li>Search and time filters</li>
-              <li>Saved team sequences on the device you are using</li>
-              <li>Full-screen facilitator mode</li>
-              <li>Quick replacement of any activity</li>
-            </ul>
-            <p>No employee profiles, mood scores, participation tracking, or wellness dashboards.</p>
+        <section class="org-feature-grid" aria-labelledby="full-access-includes">
+          <h2 id="full-access-includes">What Full Access includes</h2>
+          <div class="org-feature-columns">
+            <div><strong>Complete activity library</strong><p>Browse all P.A.C.E. activities by step, search terms, and time.</p></div>
+            <div><strong>Facilitator tools</strong><p>Build, replace, run, time, skip, and explain activities without leaving the sequence.</p></div>
+            <div><strong>Team sequences</strong><p>Save a sequence for your team and copy a link that another person can open and run.</p></div>
+            <div><strong>Getting-started resources</strong><p>A facilitator quick start, two-week pilot, meeting tips, and practical troubleshooting.</p></div>
           </div>
+          <p class="privacy-line">No employee profiles, mood scores, participation tracking, or wellness dashboards. The optional impact check-in described below is opt-in, device-local, and never tied to a person.</p>
+        </section>
 
-          <div class="access-box" id="access-box">
+        <div class="org-layout org-access-layout">
+          <section class="access-box" id="access-box" aria-labelledby="access-title">
             <div id="locked-access">
-              <h2>Already have access?</h2>
+              <h2 id="access-title">Organization access</h2>
               <label for="access-code">Organization access code</label>
               <div class="code-row">
                 <input id="access-code" type="password" autocomplete="one-time-code" spellcheck="false">
-                <button type="button" class="button primary" id="unlock-button">Open full access</button>
+                <button type="button" class="button primary" id="unlock-button">Open Full Access</button>
               </div>
               <p id="access-message" class="form-message" aria-live="polite"></p>
               <hr>
-              <h3>Need access?</h3>
-              <p>Contact Trauma Informed Oregon and ask about P.A.C.E. Full Access for your organization.</p>
-              <a class="button secondary link-button" href="mailto:info@traumainformedoregon.org?subject=P.A.C.E.%20Full%20Access">Request full access</a>
+              <p>Organizations can request access from Trauma Informed Oregon. If your organization already has access, the unlock link in your access email opens the full product directly, with nothing to type.</p>
+              <a class="button secondary link-button" href="mailto:info@traumainformedoregon.org?subject=P.A.C.E.%20Full%20Access">Ask about Full Access</a>
             </div>
             <div id="unlocked-access" hidden>
-              <h2>Full access is open</h2>
-              <p>You can use the complete activity library on this device.</p>
-              <button type="button" class="button primary" id="build-full">Build from full library</button>
-              <button type="button" class="button secondary" id="browse-full">Browse activity library</button>
-              <button type="button" class="text-button" id="lock-full">Remove access from this device</button>
+              <h2>Full Access</h2>
+              <p>Choose what you need right now.</p>
+              <div class="org-action-stack">
+                <button type="button" class="button primary" id="build-full">Build from full library</button>
+                <button type="button" class="button secondary" id="browse-full">Browse activity library</button>
+                <button type="button" class="button secondary" id="open-resources">Getting-started resources</button>
+              </div>
+              <button type="button" class="text-button" id="copy-unlock-link">Copy unlock link to share within your organization</button>
+              <button type="button" class="text-button" id="lock-full">Close Full Access on this device</button>
             </div>
-          </div>
+          </section>
+
+          <section class="team-setup" aria-labelledby="team-setup-title">
+            <h2 id="team-setup-title">Team label</h2>
+            <p>Add a team or organization name if you want it to appear on shared sequence links. It stays on this device.</p>
+            <label for="team-name-input">Team or organization name <span class="optional">optional</span></label>
+            <div class="code-row">
+              <input id="team-name-input" type="text" maxlength="80" autocomplete="organization">
+              <button type="button" class="button secondary" id="save-team-name">Save</button>
+            </div>
+            <p id="team-name-status" class="form-message" aria-live="polite"></p>
+          </section>
         </div>
 
-        <section id="saved-sequences-section" class="saved-section" hidden aria-labelledby="saved-title">
-          <h2 id="saved-title">Saved sequences</h2>
+        <section id="saved-sequences-section" class="saved-section team-sequences" aria-labelledby="saved-title">
+          <div class="section-heading-row">
+            <div><p class="kicker">Team sequences</p><h2 id="saved-title">Sequences your team can reuse</h2></div>
+            <button type="button" class="button secondary" id="build-from-team">Build a new sequence</button>
+          </div>
+          <p class="section-intro">Save a sequence here, then copy its link to email, chat, Teams, or Slack. A person opening the link can run the same four activities without an account.</p>
           <div id="saved-sequences" class="saved-list"></div>
+          <p id="no-saved-sequences" class="empty-state">No team sequences saved yet.</p>
+        </section>
+
+        <section id="impact-summary-section" class="impact-summary" aria-labelledby="impact-summary-title">
+          <div class="section-heading-row">
+            <div><p class="kicker">Optional · Device-local</p><h2 id="impact-summary-title">Is P.A.C.E. earning its place?</h2></div>
+          </div>
+          <p class="section-intro">This is a running count of the optional "was this worth it" check-ins from this device only. Nothing here identifies a person, and nothing is sent anywhere unless you choose to share the summary below.</p>
+          <div class="impact-stats" id="impact-stats"></div>
+          <p id="impact-empty" class="empty-state">No check-ins recorded on this device yet. They appear here after a sequence is run and someone answers the optional question at the end.</p>
+          <div class="impact-summary-actions" id="impact-summary-actions" hidden>
+            <button type="button" class="button secondary" id="share-impact-summary">Share this summary with Trauma Informed Oregon</button>
+            <button type="button" class="text-button" id="clear-impact-summary">Clear this device's count</button>
+          </div>
+        </section>
+
+        <section class="org-start-preview" aria-labelledby="start-preview-title">
+          <div class="section-heading-row">
+            <div><p class="kicker">Getting started</p><h2 id="start-preview-title">Start small enough to actually use it</h2></div>
+            <button type="button" class="button primary" id="open-resources-2">Open the guide</button>
+          </div>
+          <div class="launch-strip">
+            <div><strong>1</strong><span>Pick where P.A.C.E. fits</span><small>Team meeting, shift check-in, supervision, or another regular gathering.</small></div>
+            <div><strong>2</strong><span>Try it for two weeks</span><small>Five to ten minutes. Voluntary participation. No emotional monitoring.</small></div>
+            <div><strong>3</strong><span>Ask one question</span><small>Should we keep doing this?</small></div>
+          </div>
         </section>
       </div>
     </section>
@@ -303,40 +1246,123 @@
       </div>
     </section>
 
+
+    <section id="view-resources" class="view" aria-labelledby="resources-title">
+      <div class="page editorial-page resources-page">
+        <div class="resource-header-row">
+          <div><p class="kicker">Full Access · Getting started</p><h1 id="resources-title">A practical way to bring P.A.C.E. into a team</h1></div>
+          <button type="button" class="button secondary" id="print-resources">Print this guide</button>
+        </div>
+        <p class="lede">Use what fits your setting. P.A.C.E. is meant to be brief enough to survive an ordinary workday.</p>
+
+        <section class="resource-section" aria-labelledby="quick-start-title">
+          <h2 id="quick-start-title">Facilitator quick start</h2>
+          <ol class="numbered-steps">
+            <li><strong>Choose the moment.</strong><span>Put P.A.C.E. at the start of a meeting, shift check-in, supervision, or another gathering that already exists.</span></li>
+            <li><strong>Choose four activities.</strong><span>One Presence, one Attune, one Connect, one Energy. Keep the total under 10 minutes.</span></li>
+            <li><strong>Tell people what to expect.</strong><span>Participation is voluntary. No personal explanation is required. People can skip an activity.</span></li>
+            <li><strong>Run the sequence.</strong><span>Read the instructions, do the activity, and move on. Processing is not required.</span></li>
+            <li><strong>Use what the room showed you.</strong><span>Before continuing the meeting, decide whether the plan still fits the room.</span></li>
+          </ol>
+        </section>
+
+        <section class="resource-section pilot-section" aria-labelledby="pilot-title">
+          <h2 id="pilot-title">Two-week pilot</h2>
+          <div class="pilot-grid">
+            <div><strong>The ask</strong><p>Five to ten minutes at the start of regular team meetings or shift check-ins for two weeks.</p></div>
+            <div><strong>Keep it voluntary</strong><p>No required disclosure. No emotional monitoring. No participation score. Stop if the practice is not useful.</p></div>
+            <div><strong>Rotate the lead</strong><p>A different person can choose the activities and run the sequence. The app carries the instructions.</p></div>
+            <div><strong>The only question</strong><p>After two weeks: <strong>Should we keep doing this?</strong> The optional check-in at the end of each sequence gives you a running answer without asking anyone to explain themselves.</p></div>
+          </div>
+
+          <h3 class="success-signs-title">How you will know</h3>
+          <p class="section-intro">Success here is behavior you can see, not a feeling anyone has to report. P.A.C.E. never asks anyone to feel differently.</p>
+          <div class="pilot-grid">
+            <div><strong>Signs it is working</strong><p>Meetings start easier and closer to on time. Someone actually uses the pause signal, the stop time, or "drop something." On a low-capacity day the plan changes instead of the people pushing through. People keep joining without being chased, and eventually someone runs it without being asked.</p></div>
+            <div><strong>Signs it is not</strong><p>It feels like a chore the facilitator drags the room through. Most people skip most activities most days. Nothing about pace, workload, or stopping points ever changes. If that is where you land after two weeks, stop or change the format. That is the practice working as designed, not a failure.</p></div>
+          </div>
+        </section>
+
+        <section class="resource-section" aria-labelledby="intro-title">
+          <h2 id="intro-title">How to introduce it without a speech</h2>
+          <div class="plain-script" role="note">
+            <p>"We're going to try a short P.A.C.E. sequence at the start of this meeting. It takes a few minutes. You won't be asked to explain how you're feeling or share anything personal. Join in where it works for you, and skip anything that doesn't."</p>
+          </div>
+        </section>
+
+        <section class="resource-section" aria-labelledby="situations-title">
+          <h2 id="situations-title">When the room gives you a problem</h2>
+          <div class="situation-list">
+            <details><summary>People do not want cameras on</summary><p>Leave them off. Presence and many Attune and Energy activities work without video. For Connect, choose an audio, counting, or camera-free option from the full library.</p></details>
+            <details><summary>You only have three minutes</summary><p>Use the time filter. Pick 30-second and one-minute activities and keep the transition between them clean.</p></details>
+            <details><summary>An activity does not fit this group</summary><p>Replace it or skip it. Nobody needs to explain why.</p></details>
+            <details><summary>The team thinks it feels awkward</summary><p>Keep the first attempts short. P.A.C.E. does not require belief or enthusiasm. Run the activity, notice what is useful, and move on.</p></details>
+            <details><summary>The group shows very low capacity</summary><p>Do not turn that into a discussion about individual people. Use it to adjust the work: slow the pace, shorten the agenda, drop something nonessential, or set a stopping point.</p></details>
+          </div>
+        </section>
+
+        <section class="resource-section" aria-labelledby="access-use-title">
+          <h2 id="access-use-title">Accessibility in the room</h2>
+          <ul class="plain-list two-column">
+            <li>Offer camera-off participation</li>
+            <li>Read instructions aloud and keep them visible</li>
+            <li>Do not rely on color alone</li>
+            <li>Offer a non-movement option when movement is used</li>
+            <li>Let people skip without explanation</li>
+            <li>Do not make speed a measure of participation</li>
+          </ul>
+          <p><button type="button" class="text-button" data-view="accessibility">Read the app accessibility statement</button></p>
+        </section>
+      </div>
+    </section>
+
     <section id="view-about" class="view" aria-labelledby="about-title">
       <div class="page editorial-page about-page">
         <p class="kicker">About P.A.C.E.</p>
-        <h1 id="about-title">A short team practice for the start of work</h1>
-        <p class="lede">P.A.C.E. uses four brief steps: Presence, Attune, Connect, and Energy. Teams choose one activity from each step and run them in order.</p>
+        <h1 id="about-title">What sits underneath the four steps</h1>
+        <p class="lede">P.A.C.E. is a brief team practice for the start of work. One activity from Presence, Attune, Connect, and Energy. Most sequences take less than 10 minutes and do not require personal disclosure.</p>
 
         <section aria-labelledby="why-order-title">
           <h2 id="why-order-title">Why this order</h2>
           <div class="science-rows">
-            <div class="science-row presence"><strong>P&nbsp; Presence</strong><p>Start with the immediate environment. Looking outward gives the brain current information about where you are.</p></div>
-            <div class="science-row attune"><strong>A&nbsp; Attune</strong><p>Notice capacity without asking people to explain or disclose what is behind it.</p></div>
-            <div class="science-row connect"><strong>C&nbsp; Connect</strong><p>Use shared rhythm, timing, attention, or movement without requiring personal content.</p></div>
-            <div class="science-row energy"><strong>E&nbsp; Energy</strong><p>End by making pace, workload, stopping points, or limits part of the work.</p></div>
+            <div class="science-row presence"><strong>P&nbsp; Presence</strong><p>Start with the immediate environment. External orientation gives people current information about where they are before the group asks anything more of them.</p></div>
+            <div class="science-row attune"><strong>A&nbsp; Attune</strong><p>Notice the room's available pace or capacity without asking people to explain what is behind it.</p></div>
+            <div class="science-row connect"><strong>C&nbsp; Connect</strong><p>Use brief shared timing, attention, or movement. Research on interpersonal synchrony links coordinated action with social connection and cooperation, while the mechanisms are still being studied.</p></div>
+            <div class="science-row energy"><strong>E&nbsp; Energy</strong><p>End with resources and limits. Stress increases when time, energy, and other valued resources are threatened or depleted, so capacity has to affect how work is paced.</p></div>
           </div>
         </section>
 
-        <section aria-labelledby="science-title">
+        <section class="science-explainer" aria-labelledby="science-title">
           <h2 id="science-title">Research and practice</h2>
-          <p>P.A.C.E. draws from work on stress physiology, orienting, co-regulation, coordinated action, conservation of resources, interpersonal neurobiology, and trauma-informed care. The activities are kept brief and practical on purpose.</p>
-          <p>The science gives us useful ways to understand what may be happening. It does not mean every activity works the same way for every person or every group.</p>
+          <div class="science-copy-grid">
+            <div><h3>Attention and orientation</h3><p>Where attention goes matters. Presence activities use ordinary, external information — the room, the floor, an object, the workspace — rather than asking people to turn inward or tell a story.</p></div>
+            <div><h3>Coordination and synchrony</h3><p>Shared timing and coordinated action have been studied across movement, rhythm, and group behavior. P.A.C.E. uses very short versions of those ideas without treating any one neuroscience explanation as settled fact.</p></div>
+            <div><h3>Resources and workload</h3><p>Conservation of Resources theory describes stress in part through threatened or depleted resources. Energy activities turn pace, workload, and stopping points into information the team can use.</p></div>
+            <div><h3>Trauma-informed practice</h3><p>Choice, collaboration, safety, transparency, and resistance to retraumatization shape the practice. That is why participation is voluntary, activities can be skipped, and P.A.C.E. does not collect individual wellness responses.</p></div>
+          </div>
+          <p class="framework-note"><strong>P.A.C.E. is a practice framework informed by these bodies of research.</strong> It is not presented as a clinical treatment or as a clinically validated intervention.</p>
         </section>
 
         <section class="references" aria-labelledby="references-title">
-          <h2 id="references-title">References and foundations</h2>
-          <p class="reference-intro">The P.A.C.E. training materials name the following research and practice foundations.</p>
-          <ul>
-            <li><strong>Stephen Porges</strong>, Polyvagal Theory and autonomic state.</li>
-            <li><strong>Deb Dana</strong>, practice applications of co-regulation and Polyvagal Theory.</li>
-            <li><strong>Giacomo Rizzolatti</strong>, action observation and the mirror-neuron system.</li>
-            <li><strong>Stevan Hobfoll</strong>, Conservation of Resources theory.</li>
-            <li><strong>Joseph LeDoux</strong>, threat processing, fear, and orienting.</li>
-            <li><strong>Daniel Siegel</strong>, interpersonal neurobiology.</li>
-            <li><strong>SAMHSA</strong>, trauma-informed care principles and guidance.</li>
+          <h2 id="references-title">References</h2>
+          <ol class="reference-list">
+            <li>Hobfoll, S. E. (1989). Conservation of resources: A new attempt at conceptualizing stress. <em>American Psychologist, 44</em>(3), 513–524. doi:10.1037/0003-066X.44.3.513.</li>
+            <li>Mogan, R., Fischer, R., &amp; Bulbulia, J. A. (2017). To be in synchrony or not? A meta-analysis of synchrony's effects on behavior, perception, cognition and affect. <em>Journal of Experimental Social Psychology, 72</em>, 13–20. doi:10.1016/j.jesp.2017.03.009.</li>
+            <li>Substance Abuse and Mental Health Services Administration. (2014). <em>SAMHSA's Concept of Trauma and Guidance for a Trauma-Informed Approach</em> (SMA 14-4884).</li>
+            <li>P.A.C.E. training materials also draw on work by Stephen Porges, Deb Dana, Giacomo Rizzolatti, Joseph LeDoux, and Daniel Siegel. Those bodies of work are used as foundations and context rather than proof that a particular P.A.C.E. activity produces a specific clinical effect.</li>
+          </ol>
+        </section>
+
+        <section aria-labelledby="working-title">
+          <h2 id="working-title">How teams know it is working</h2>
+          <p class="section-intro">P.A.C.E. works when the group uses what it notices. The signs are visible in how work happens, so nobody has to report a feeling to prove anything.</p>
+          <ul class="plain-list two-column">
+            <li>Meetings start easier and closer to on time</li>
+            <li>Pause signals, stop times, and "drop something" get used for real</li>
+            <li>On low-capacity days the plan changes, not the people</li>
+            <li>Participation continues by choice, and others start to lead it</li>
           </ul>
+          <p class="section-intro">If none of that happens after a fair try, stopping is a legitimate outcome. The practice asks for a decision, not loyalty.</p>
         </section>
 
         <section class="what-not-required" aria-labelledby="not-required-title">
@@ -346,6 +1372,8 @@
             <li>Belief in the process</li>
             <li>Cameras on for every activity</li>
             <li>Individual regulation before the group begins</li>
+            <li>A wellness score or mood check</li>
+            <li>Tracking who participates</li>
           </ul>
         </section>
       </div>
@@ -395,10 +1423,1674 @@
     </div>
   </footer>
 
-  <template id="why-tooltip-template">
-    <div class="tooltip" role="tooltip"></div>
-  </template>
+  <script id="pace-cards" type="application/json">
+[
+{
+"Key": "Presence | Environmental Scan",
+"Category": "Presence",
+"Section": "Core",
+"Card Name": "Environmental Scan",
+"Subtitle": "Getting oriented together",
+"How": "Everyone look around this room. Count how many people are here. Locate the nearest exit. Find something that wasn't here last time. That's it.",
+"Why": "Grounds attention in the shared environment and starts the meeting with something predictable.",
+"Time Text": "30 seconds",
+"Seconds": 30
+},
+{
+"Key": "Presence | Feet on Floor",
+"Category": "Presence",
+"Section": "Core",
+"Card Name": "Feet on Floor",
+"Subtitle": "Physical grounding",
+"How": "Everyone feel your feet on the floor. Press down slightly. Notice if you're wearing shoes or not. Shift weight left foot, right foot, both. Done.",
+"Why": "A simple physical reference point that asks for no disclosure.",
+"Time Text": "30 seconds",
+"Seconds": 30
+},
+{
+"Key": "Presence | Workspace Check",
+"Category": "Presence",
+"Section": "Core",
+"Card Name": "Workspace Check",
+"Subtitle": "Claiming your space",
+"How": "Look at your immediate workspace. Adjust one thing - chair, papers, phone position. Take up the space you need. Everyone settled? Continue.",
+"Why": "A small adjustment gives people a bit of control over how they enter the meeting.",
+"Time Text": "30 seconds",
+"Seconds": 30
+},
+{
+"Key": "Attune | Meeting Pace",
+"Category": "Attune",
+"Section": "Core",
+"Card Name": "Meeting Pace",
+"Subtitle": "Choosing today's pace",
+"How": "Pick your pace for this meeting: 1 = sprint, 2 = steady, 3 = slow. On the count of 3, everyone holds up 1, 2, or 3 fingers, or types the number in chat. Notice where most of the group lands and use that as the meeting pace. No explanation needed.",
+"Why": "Shows the group's available pace without asking anyone to explain or disclose anything.",
+"Time Text": "30 seconds",
+"Seconds": 30
+},
+{
+"Key": "Attune | One Word Check",
+"Category": "Attune",
+"Section": "Core",
+"Card Name": "One Word Check",
+"Subtitle": "Acknowledging without exposing",
+"How": "Everyone think of one neutral word describing today - could be weather, color, season, food. Go around quickly, say your word. Just words, no explanations.",
+"Why": "A low-stakes way for the room to hear from everyone without personal disclosure.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Attune | Permission Statement",
+"Category": "Attune",
+"Section": "Core",
+"Card Name": "Permission Statement",
+"Subtitle": "Collective reset",
+"How": "Everyone repeat together once: \"Good enough is good enough.\" Say it together on count of three. 1-2-3. Done. Continue.",
+"Why": "Saying the permission out loud together makes it shared instead of private.",
+"Time Text": "30 seconds",
+"Seconds": 30
+},
+{
+"Key": "Connect | Rhythm Together",
+"Category": "Connect",
+"Section": "Core",
+"Card Name": "Rhythm Together",
+"Subtitle": "Creating shared beat",
+"How": "Someone taps table twice - tap, tap. Everyone joins the rhythm. Keep it going for 10 seconds. Stop together. No counting, just feeling when to stop.",
+"Why": "A brief shared rhythm asks the group to coordinate without any personal content.",
+"Time Text": "30 seconds",
+"Seconds": 30
+},
+{
+"Key": "Connect | Three Movements",
+"Category": "Connect",
+"Section": "Core",
+"Card Name": "Three Movements",
+"Subtitle": "Simple synchrony",
+"How": "Leader does three simple desk movements: shoulders up/down, head turn left/right, hands open/close. Everyone mirrors simultaneously. Once through. Done.",
+"Why": "Copying a simple movement creates brief shared attention without sharing anything personal.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Connect | Count Together",
+"Category": "Connect",
+"Section": "Core",
+"Card Name": "Count Together",
+"Subtitle": "Collective focus",
+"How": "Count to 10 as a group, one voice per number, no order assigned. If two people speak at once, start over at 1. Usually takes 2-3 tries.",
+"Why": "Requires attention to each other and creates a natural, low-stakes shared task.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Energy | One Thing Less",
+"Category": "Energy",
+"Section": "Core",
+"Card Name": "One Thing Less",
+"Subtitle": "Collective permission to subtract",
+"How": "Everyone mentally picks one thing they'll let slide today. Don't share what. Just decide. Nod when ready. Group permission granted.",
+"Why": "Makes subtraction a normal, shared part of the workday instead of a private failure.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Energy | Stop Signal",
+"Category": "Energy",
+"Section": "Core",
+"Card Name": "Stop Signal",
+"Subtitle": "Shared boundary setting",
+"How": "Pick a time we all stop pushing today - could be lunch, 3pm, whatever. Quick consensus. That's when \"good enough\" becomes \"done.\" Honor it.",
+"Why": "Creates a collective boundary the group can actually see and honor.",
+"Time Text": "2 minutes",
+"Seconds": 120
+},
+{
+"Key": "Presence | Temperature Check",
+"Category": "Presence",
+"Section": "Core",
+"Card Name": "Temperature Check",
+"Subtitle": "Physical comfort baseline",
+"How": "1. Notice if you're warm, cool, or comfortable\n2. Adjust clothing or position as needed\n3. That's it\n4. Continue",
+"Why": "Comfort is practical information. A small adjustment removes one background distraction.",
+"Time Text": "30 seconds",
+"Seconds": 30
+},
+{
+"Key": "Presence | Object Anchor",
+"Category": "Presence",
+"Section": "Core",
+"Card Name": "Object Anchor",
+"Subtitle": "Pick something solid",
+"How": "1. Choose one object you can see\n2. Notice its edges, color, texture\n3. It was here before this meeting\n4. It'll be here after\n5. Solid things = solid reference points",
+"Why": "An external focus point gives attention somewhere concrete to go.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Presence | Corner Count",
+"Category": "Presence",
+"Section": "Core",
+"Card Name": "Corner Count",
+"Subtitle": "Structural awareness",
+"How": "1. Count corners in your field of vision\n2. Room corners, furniture, screens\n3. Hold up fingers for your count\n4. Just numbers\n5. Done",
+"Why": "Counting fixed features gives attention something predictable to rest on.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Presence | Boundary Map",
+"Category": "Presence",
+"Section": "Core",
+"Card Name": "Boundary Map",
+"Subtitle": "Where you are in space",
+"How": "1. What's behind you?\n2. To your left?\n3. To your right?\n4. In front?\n5. You're located in space",
+"Why": "Knowing what surrounds you is basic orienting information, gathered without any discussion.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Presence | Floor Press",
+"Category": "Presence",
+"Section": "Core",
+"Card Name": "Floor Press",
+"Subtitle": "Ground contact",
+"How": "1. Both feet flat on floor\n2. Press down for 3 seconds\n3. Feel the push back\n4. Surface holds you\n5. Move on",
+"Why": "Steady pressure against the floor is a simple, repeatable physical reference point.",
+"Time Text": "30 seconds",
+"Seconds": 30
+},
+{
+"Key": "Presence | Light Source ID",
+"Category": "Presence",
+"Section": "Core",
+"Card Name": "Light Source ID",
+"Subtitle": "Visual environment",
+"How": "1. Count light sources in room\n2. Overhead, windows, screens, lamps\n3. Note the brightest one\n4. Light makes work possible\n5. Return to task",
+"Why": "Cataloging ordinary features keeps attention on the shared environment for a moment.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Presence | Workspace Edge",
+"Category": "Presence",
+"Section": "Core",
+"Card Name": "Workspace Edge",
+"Subtitle": "Claiming your area",
+"How": "1. Touch the edges of your desk or table\n2. This space is yours right now\n3. Notice what's in it\n4. Clear one thing if useful\n5. Proceed",
+"Why": "A defined workspace is one small thing each person gets to control.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Presence | Sound Volume",
+"Category": "Presence",
+"Section": "Core",
+"Card Name": "Sound Volume",
+"Subtitle": "Ambient noise check",
+"How": "1. Rate the room: quiet, moderate, or loud\n2. Don't share your rating\n3. Just register it\n4. Adjust your own volume if needed\n5. Continue",
+"Why": "Noticing the sound level is quick environmental information. No discussion needed.",
+"Time Text": "30 seconds",
+"Seconds": 30
+},
+{
+"Key": "Presence | Furniture Test",
+"Category": "Presence",
+"Section": "Core",
+"Card Name": "Furniture Test",
+"Subtitle": "What supports you",
+"How": "1. Shift in your chair\n2. Does it hold you?\n3. Adjust if needed\n4. Supported = sustainable\n5. Good enough? Move forward",
+"Why": "Physical support matters for sitting through a meeting. Adjust it before the meeting needs you.",
+"Time Text": "30 seconds",
+"Seconds": 30
+},
+{
+"Key": "Presence | Exit Awareness",
+"Category": "Presence",
+"Section": "Core",
+"Card Name": "Exit Awareness",
+"Subtitle": "Knowing the way out",
+"How": "1. Locate nearest exit\n2. You know where it is\n3. It's accessible if needed\n4. Knowing = less scanning\n5. Return to work",
+"Why": "Knowing the way out is practical information many people quietly look for anyway.",
+"Time Text": "30 seconds",
+"Seconds": 30
+},
+{
+"Key": "Presence | Pen Check",
+"Category": "Presence",
+"Section": "Extras",
+"Card Name": "Pen Check",
+"Subtitle": "Tool confirmation",
+"How": "1. Pick up your pen\n2. Make one mark\n3. Works? Good.\n4. Put it down\n5. Small confirmations add up",
+"Why": "A quick working check means one less unknown at the start.",
+"Time Text": "30 seconds",
+"Seconds": 30
+},
+{
+"Key": "Presence | Air Flow",
+"Category": "Presence",
+"Section": "Extras",
+"Card Name": "Air Flow",
+"Subtitle": "Breathing room",
+"How": "1. Take one breath\n2. Stuffy or fresh?\n3. Crack a window or door if helpful\n4. No discussion\n5. Air quality affects thinking",
+"Why": "Fresh air is a practical fix that helps everyone in the room.",
+"Time Text": "30 seconds",
+"Seconds": 30
+},
+{
+"Key": "Presence | Screen Distance",
+"Category": "Presence",
+"Section": "Extras",
+"Card Name": "Screen Distance",
+"Subtitle": "Visual comfort",
+"How": "1. Notice how far your screen is\n2. Too close? Too far?\n3. Adjust if needed\n4. Eye strain = energy drain\n5. Set and continue",
+"Why": "A small ergonomic adjustment now prevents discomfort later.",
+"Time Text": "30 seconds",
+"Seconds": 30
+},
+{
+"Key": "Attune | Capacity Number",
+"Category": "Attune",
+"Section": "Core",
+"Card Name": "Capacity Number",
+"Subtitle": "Private assessment",
+"How": "1. Rate your capacity 1-10, keep it private\n2. This is just information for you\n3. It will shift during the day\n4. You work with what you've got\n5. Move forward",
+"Why": "Private self-awareness without any disclosure. The number is information, not a judgment.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Attune | Rhythm Set",
+"Category": "Attune",
+"Section": "Core",
+"Card Name": "Rhythm Set",
+"Subtitle": "Establishing pace together",
+"How": "1. Someone taps a simple beat on the table\n2. Group repeats it once\n3. That's the pace for this meeting\n4. Not fast, not slow - just that\n5. Hold it",
+"Why": "One repeated beat sets a shared expectation without words.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Attune | Start Word",
+"Category": "Attune",
+"Section": "Core",
+"Card Name": "Start Word",
+"Subtitle": "One word framing",
+"How": "1. Leader offers one word (focus, steady, patience, momentum)\n2. Say it once aloud\n3. Team can repeat silently or aloud\n4. That's the frame\n5. Begin",
+"Why": "A single word sets a collective tone without overexplaining.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Attune | Here Because",
+"Category": "Attune",
+"Section": "Core",
+"Card Name": "Here Because",
+"Subtitle": "Presence acknowledgment",
+"How": "1. Each person says one word: \"required,\" \"chose,\" \"both,\" or \"here\"\n2. No explanation\n3. All valid\n4. Reality named\n5. Continue",
+"Why": "Mixed motivation is normal. Naming it removes pretense.",
+"Time Text": "2 minutes",
+"Seconds": 120
+},
+{
+"Key": "Attune | Pause Agreement",
+"Category": "Attune",
+"Section": "Core",
+"Card Name": "Pause Agreement",
+"Subtitle": "Collective signal",
+"How": "1. Agree on one signal for \"need a pause\"\n2. Raised hand, specific word, object on table\n3. Anyone can use it\n4. Group honors it, no questions\n5. Resume when ready",
+"Why": "Agreeing on a pause signal ahead of time makes it much easier to actually use one.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Attune | Volume Check",
+"Category": "Attune",
+"Section": "Core",
+"Card Name": "Volume Check",
+"Subtitle": "Audio calibration",
+"How": "1. Leader speaks at comfortable volume\n2. In-room folks: Can you hear?\n3. Virtual folks: Can you hear?\n4. Adjust as needed\n5. Proceed",
+"Why": "Equal access to the information means equal ability to participate.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Attune | Arrival Signal",
+"Category": "Attune",
+"Section": "Core",
+"Card Name": "Arrival Signal",
+"Subtitle": "Marking presence",
+"How": "1. Each person makes one small sound or movement\n2. Tap table, clear throat, nod\n3. Confirms: I'm here\n4. Group sees everyone arrived\n5. Start together",
+"Why": "A small signal marks presence without asking anyone to perform.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Attune | Load Share",
+"Category": "Attune",
+"Section": "Core",
+"Card Name": "Load Share",
+"Subtitle": "Workload visibility",
+"How": "1. Rate your workload privately: light, medium, heavy\n2. If comfortable, signal with 1-3 fingers\n3. No explanation needed\n4. Group sees the landscape\n5. Adjust expectations accordingly",
+"Why": "Seeing the collective load helps the team right-size its demands.",
+"Time Text": "2 minutes",
+"Seconds": 120
+},
+{
+"Key": "Attune | One Breath In",
+"Category": "Attune",
+"Section": "Core",
+"Card Name": "One Breath In",
+"Subtitle": "Synchronizing start",
+"How": "1. Count 1-2-3\n2. Everyone inhales together\n3. Exhale naturally on your own\n4. That's it\n5. Begin meeting",
+"Why": "One shared inhale marks a shared starting point without an extended breathing exercise.",
+"Time Text": "30 seconds",
+"Seconds": 30
+},
+{
+"Key": "Attune | Meeting Length",
+"Category": "Attune",
+"Section": "Core",
+"Card Name": "Meeting Length",
+"Subtitle": "Time container",
+"How": "1. State start time\n2. State end time\n3. Calculate duration\n4. This is the container\n5. Work within it",
+"Why": "A clear time container prevents the endless-meeting feeling.",
+"Time Text": "30 seconds",
+"Seconds": 30
+},
+{
+"Key": "Attune | Tech Check",
+"Category": "Attune",
+"Section": "Extras",
+"Card Name": "Tech Check",
+"Subtitle": "Device status",
+"How": "1. Is your tech working?\n2. Thumbs up if yes\n3. Thumbs sideways if issues\n4. Address problems before starting\n5. Proceed when ready",
+"Why": "Technical issues drain the room. Clear them first.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Attune | Seating Choice",
+"Category": "Attune",
+"Section": "Extras",
+"Card Name": "Seating Choice",
+"Subtitle": "Position autonomy",
+"How": "1. Can you see what you need to?\n2. Shift if not\n3. Camera on/off - your call\n4. Settled? Good.\n5. Continue",
+"Why": "Small choices give people some say in how they participate.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Attune | Interruption Plan",
+"Category": "Attune",
+"Section": "Extras",
+"Card Name": "Interruption Plan",
+"Subtitle": "Managing disruptions",
+"How": "1. Acknowledge interruptions may happen\n2. Set signal for \"urgent\" vs \"can wait\"\n3. No judgment on interruptions\n4. Return plan established\n5. Proceed",
+"Why": "Deciding ahead of time saves the group a decision in the middle of a disruption.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Attune | End Time Confirm",
+"Category": "Attune",
+"Section": "Extras",
+"Card Name": "End Time Confirm",
+"Subtitle": "Shared endpoint",
+"How": "1. When does this actually end?\n2. Everyone confirm they have same time\n3. That's the boundary\n4. Hard stop or flexible?\n5. Clarity established",
+"Why": "A confirmed endpoint removes one common source of uncertainty.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Connect | Mirrored Gesture",
+"Category": "Connect",
+"Section": "Core",
+"Card Name": "Mirrored Gesture",
+"Subtitle": "Copy without thinking",
+"How": "1. One person makes simple gesture\n2. Everyone copies it\n3. Pass leadership clockwise\n4. Five rounds\n5. No words needed",
+"Why": "Copying a movement creates brief shared attention. No vulnerability required.",
+"Time Text": "2 minutes",
+"Seconds": 120
+},
+{
+"Key": "Connect | Counting Together",
+"Category": "Connect",
+"Section": "Core",
+"Card Name": "Counting Together",
+"Subtitle": "Shared task",
+"How": "1. Count to 20 as a group\n2. Each person says one number\n3. Don't plan who goes when\n4. If two speak at once, start over\n5. Complete it",
+"Why": "Collaborative counting requires attention to each other without personal content.",
+"Time Text": "2 minutes",
+"Seconds": 120
+},
+{
+"Key": "Connect | Parallel Task",
+"Category": "Connect",
+"Section": "Core",
+"Card Name": "Parallel Task",
+"Subtitle": "Same activity, individual execution",
+"How": "1. Everyone draws a square in 10 seconds\n2. Hold them up\n3. Same prompt, different results\n4. Put them down\n5. Autonomy within collectivity",
+"Why": "The same task with different results shows the group can be together without conforming.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Connect | Beat Match",
+"Category": "Connect",
+"Section": "Core",
+"Card Name": "Beat Match",
+"Subtitle": "Creating rhythm",
+"How": "1. Someone starts tapping a beat\n2. Others join when ready\n3. Keep it going 20 seconds\n4. Fade out together\n5. Done",
+"Why": "A shared rhythm gives the group one simple thing to do at the same time.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Connect | Stack Build",
+"Category": "Connect",
+"Section": "Core",
+"Card Name": "Stack Build",
+"Subtitle": "Collaborative construction",
+"How": "1. Task: Stack available objects\n2. 60 seconds, no talking\n3. Everyone contributes something\n4. Observe the structure\n5. Take it apart together",
+"Why": "Building together is a shared task that needs no conversation.",
+"Time Text": "2 minutes",
+"Seconds": 120
+},
+{
+"Key": "Connect | Fact Chain",
+"Category": "Connect",
+"Section": "Core",
+"Card Name": "Fact Chain",
+"Subtitle": "Building knowledge",
+"How": "1. Topic: This building/organization\n2. Each person shares one fact\n3. Practical info only (bathroom location, policy, resource)\n4. Go around once\n5. Collective intelligence mapped",
+"Why": "Sharing operational knowledge builds the team's collective know-how.",
+"Time Text": "3 minutes",
+"Seconds": 180
+},
+{
+"Key": "Connect | Sound Round",
+"Category": "Connect",
+"Section": "Core",
+"Card Name": "Sound Round",
+"Subtitle": "Group noise",
+"How": "1. Pick a sound: hum, \"ahh,\" or count\n2. On 3, everyone makes it for 5 seconds\n3. Stop together\n4. Silence for 3 seconds\n5. Done",
+"Why": "Making one sound together is a brief shared task with a clear start and stop.",
+"Time Text": "30 seconds",
+"Seconds": 30
+},
+{
+"Key": "Connect | Object Pass",
+"Category": "Connect",
+"Section": "Core",
+"Card Name": "Object Pass",
+"Subtitle": "Tangible connection",
+"How": "1. Pass one object around the circle\n2. Each person holds it for 2 seconds\n3. Notice its weight, texture, temperature\n4. Complete the circle\n5. Object travels, you stayed present",
+"Why": "Passing one object gives the circle a brief shared focus.",
+"Time Text": "2 minutes",
+"Seconds": 120
+},
+{
+"Key": "Connect | Name Round",
+"Category": "Connect",
+"Section": "Core",
+"Card Name": "Name Round",
+"Subtitle": "Simple acknowledgment",
+"How": "1. Say each person's name once\n2. In order around the room or screen\n3. Just names, nothing added\n4. Everyone gets named\n5. Proceed",
+"Why": "Being named is being noticed. Simple and sufficient.",
+"Time Text": "2 minutes",
+"Seconds": 120
+},
+{
+"Key": "Connect | Timed Silence",
+"Category": "Connect",
+"Section": "Core",
+"Card Name": "Timed Silence",
+"Subtitle": "Shared quiet",
+"How": "1. 30 seconds of complete silence together\n2. Eyes open or closed - your choice\n3. No requirement to \"do\" anything\n4. Time ends, continue meeting\n5. Quiet together isn't empty",
+"Why": "Shared silence can be its own kind of connection rather than isolation.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Connect | Hand Position",
+"Category": "Connect",
+"Section": "Extras",
+"Card Name": "Hand Position",
+"Subtitle": "Synchronized placement",
+"How": "1. Everyone places hands flat on table\n2. Hold for 5 seconds\n3. Lift together\n4. That's it\n5. Move on",
+"Why": "A brief synchronized action marks the group doing one thing together.",
+"Time Text": "30 seconds",
+"Seconds": 30
+},
+{
+"Key": "Connect | Question Round",
+"Category": "Connect",
+"Section": "Extras",
+"Card Name": "Question Round",
+"Subtitle": "Low-stakes sharing (optional)",
+"How": "1. Topic: \"What did you eat for breakfast?\" or \"How did you get here today?\"\n2. One sentence answers\n3. Pass is always an option\n4. Facts, not feelings\n5. One round, done",
+"Why": "Concrete, everyday details create connection without depth-diving.",
+"Time Text": "3 minutes",
+"Seconds": 180
+},
+{
+"Key": "Connect | Three Claps",
+"Category": "Connect",
+"Section": "Extras",
+"Card Name": "Three Claps",
+"Subtitle": "Marking transition",
+"How": "1. Leader claps once\n2. Group claps twice\n3. Everyone claps together once\n4. Transition complete\n5. New section begins",
+"Why": "Physical punctuation marks the shift from one thing to the next.",
+"Time Text": "30 seconds",
+"Seconds": 30
+},
+{
+"Key": "Energy | Pace Vote",
+"Category": "Energy",
+"Section": "Core",
+"Card Name": "Pace Vote",
+"Subtitle": "Democratic speed",
+"How": "1. Options: Slow, Steady, Fast\n2. Everyone votes simultaneously (fingers: 1-2-3)\n3. Majority wins\n4. That's today's pace\n5. Everyone works at group pace",
+"Why": "A group-chosen pace keeps expectations shared instead of individual.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Energy | Task Ceiling",
+"Category": "Energy",
+"Section": "Core",
+"Card Name": "Task Ceiling",
+"Subtitle": "Maximum load",
+"How": "1. List today's tasks\n2. Mark maximum realistic number\n3. Everything beyond is tomorrow's problem\n4. Capacity is real\n5. Stick to the ceiling",
+"Why": "Defining a limit makes capacity part of the plan instead of an afterthought.",
+"Time Text": "2 minutes",
+"Seconds": 120
+},
+{
+"Key": "Energy | Break Schedule",
+"Category": "Energy",
+"Section": "Core",
+"Card Name": "Break Schedule",
+"Subtitle": "Planned pauses",
+"How": "1. Set 2-3 break times now\n2. Write them down\n3. Everyone stops at those times\n4. No negotiating breaks away\n5. Rest is part of work",
+"Why": "Breaks that are scheduled are breaks that actually happen.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Energy | Good Enough Line",
+"Category": "Energy",
+"Section": "Core",
+"Card Name": "Good Enough Line",
+"Subtitle": "Strategic adequacy",
+"How": "1. Which tasks need excellence?\n2. Which need \"good enough\"?\n3. Mark 2-3 as adequate-is-fine\n4. Save energy for what matters\n5. Perfect isn't always the goal",
+"Why": "Being selective about excellence saves capacity for what actually needs it.",
+"Time Text": "2 minutes",
+"Seconds": 120
+},
+{
+"Key": "Energy | Stop Time",
+"Category": "Energy",
+"Section": "Core",
+"Card Name": "Stop Time",
+"Subtitle": "Hard boundary",
+"How": "1. What time does work actually end today?\n2. Say it aloud\n3. Set alarm if needed\n4. At that time, stop\n5. Non-negotiable",
+"Why": "A clear, stated endpoint keeps work from expanding without limit.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Energy | Energy Window",
+"Category": "Energy",
+"Section": "Core",
+"Card Name": "Energy Window",
+"Subtitle": "Peak time protection",
+"How": "1. When do you focus best?\n2. Protect that window for hardest task\n3. Everything else goes around it\n4. Work with your pattern\n5. Use your peak wisely",
+"Why": "Working with your own patterns beats forcing focus at the wrong time.",
+"Time Text": "2 minutes",
+"Seconds": 120
+},
+{
+"Key": "Energy | Rotation Plan",
+"Category": "Energy",
+"Section": "Core",
+"Card Name": "Rotation Plan",
+"Subtitle": "Sharing hard tasks",
+"How": "1. Name the most draining task\n2. Divide it into chunks\n3. Rotate who handles each part\n4. Timer signals switches\n5. No one carries it alone",
+"Why": "Distributing a hard task keeps one person from carrying it alone.",
+"Time Text": "2 minutes",
+"Seconds": 120
+},
+{
+"Key": "Energy | Buffer Add",
+"Category": "Energy",
+"Section": "Core",
+"Card Name": "Buffer Add",
+"Subtitle": "Space between",
+"How": "1. Add 10 minutes between tasks\n2. Not productivity time\n3. Not catch-up time\n4. Just buffer\n5. Prevents pile-up",
+"Why": "Transitions need space. Build it in on purpose.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Energy | Done Definition",
+"Category": "Energy",
+"Section": "Core",
+"Card Name": "Done Definition",
+"Subtitle": "Clear completion",
+"How": "1. Each task gets specific endpoint\n2. \"Done when X is complete\"\n3. Not \"work until exhausted\"\n4. Write endpoints down\n5. Stop when you hit them",
+"Why": "A defined finish line keeps effort from becoming endless.",
+"Time Text": "2 minutes",
+"Seconds": 120
+},
+{
+"Key": "Energy | Tomorrow Setup",
+"Category": "Energy",
+"Section": "Core",
+"Card Name": "Tomorrow Setup",
+"Subtitle": "Future self help",
+"How": "1. One thing to prep for tomorrow\n2. Set out materials or notes\n3. Small action now = easier start later\n4. Leave it ready\n5. Tomorrow you will be grateful",
+"Why": "Small prep now lowers the effort it takes to start tomorrow.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Energy | Recovery Ratio",
+"Category": "Energy",
+"Section": "Extras",
+"Card Name": "Recovery Ratio",
+"Subtitle": "Work to rest balance",
+"How": "1. For every intense hour: 10-minute break\n2. For every hard task: one easier task\n3. Track the ratio\n4. Balance or burn out\n5. Recovery is productive",
+"Why": "Rest is part of the work, not separate from it.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Energy | Leave It List",
+"Category": "Energy",
+"Section": "Extras",
+"Card Name": "Leave It List",
+"Subtitle": "Work stays here",
+"How": "1. End of day: write 3 things staying at work\n2. Put list in drawer\n3. They'll be here tomorrow\n4. Don't carry them home\n5. Physical act of leaving",
+"Why": "Writing it down and leaving it is a concrete way to put work down.",
+"Time Text": "2 minutes",
+"Seconds": 120
+},
+{
+"Key": "Energy | Priority Cap",
+"Category": "Energy",
+"Section": "Extras",
+"Card Name": "Priority Cap",
+"Subtitle": "Limited focus",
+"How": "1. Pick 3 priorities maximum\n2. Everything else waits\n3. Three is enough\n4. Finish them or don't, but only three\n5. Too many priorities = no priorities",
+"Why": "Focus requires limits. Three priorities is a limit.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Energy | Closure Ritual",
+"Category": "Energy",
+"Section": "Extras",
+"Card Name": "Closure Ritual",
+"Subtitle": "Ending completely",
+"How": "1. Close all tabs and files\n2. Clear desk surface\n3. Write tomorrow's first task\n4. Log out\n5. Work is done",
+"Why": "A clear ending makes it easier to actually stop.",
+"Time Text": "2 minutes",
+"Seconds": 120
+},
+{
+"Key": "Energy | Stretch Break",
+"Category": "Energy",
+"Section": "Extras",
+"Card Name": "Stretch Break",
+"Subtitle": "Physical reset",
+"How": "1. Everyone stands\n2. Stretch one body part for 10 seconds\n3. Sit back down\n4. That's it\n5. Continue",
+"Why": "A brief stretch is a physical reset that needs no explanation.",
+"Time Text": "1 minute",
+"Seconds": 60
+},
+{
+"Key": "Energy | Fist to Five",
+"Category": "Energy",
+"Section": "Starter",
+"Card Name": "Fist to Five",
+"Subtitle": "Visible capacity",
+"How": "Hold up a fist to five fingers to show how much is in the tank. The facilitator counts 3, 2, 1, show so everyone responds at the same time.",
+"Why": "Makes collective capacity visible without requiring explanation.",
+"Time Text": "30 seconds",
+"Seconds": 30
+}
+]
+  </script>
+  <script>
+(function () {
+  'use strict';
 
-  <script src="app.js" defer></script>
+  /* ============================================================
+     P.A.C.E. Starter Pack — application script (single layer)
+     Data: embedded JSON in #pace-cards. No network calls.
+     Storage: localStorage only, wrapped so failure is harmless.
+     Access: Full Access unlocks with an organization code.
+       The demo code below is a stand-in — replace it (or move
+       validation server-side) before wide distribution.
+     ============================================================ */
+
+  var ACCESS_CODE = 'TIO-PACE-4827';
+
+  var CATEGORIES = ['Presence', 'Attune', 'Connect', 'Energy'];
+
+  var CATEGORY_COPY = {
+    Presence: 'Start with the room itself. These activities orient the group to the shared environment before the work begins.',
+    Attune: 'Notice what the group has available today, without asking anyone to explain themselves.',
+    Connect: 'Do one brief thing together. No personal sharing, no processing.',
+    Energy: 'Set the pace and the limits so capacity shapes the plan.'
+  };
+
+  var CATEGORY_WHY = {
+    Presence: 'Presence comes first because orienting to the immediate environment gives people current, concrete information about where they are before the group asks anything more of them.',
+    Attune: 'Attune comes second because the plan works better when it matches the pace and capacity the room actually has, and this step gathers that without disclosure.',
+    Connect: 'Connect comes third because a brief shared action gives the group one coordinated moment. Research on interpersonal synchrony links coordinated action with connection, while the mechanisms are still being studied.',
+    Energy: 'Energy comes last because it turns what the first three steps showed into a working agreement about pace, limits, and stopping points.'
+  };
+
+  var STARTER_NAMES = {
+    Presence: ['Environmental Scan', 'Feet on Floor', 'Workspace Check'],
+    Attune: ['Meeting Pace', 'One Word Check', 'Permission Statement'],
+    Connect: ['Rhythm Together', 'Three Movements', 'Count Together'],
+    Energy: ['Fist to Five', 'One Thing Less', 'Stop Signal']
+  };
+
+  var DEFAULT_SEQUENCE = ['Environmental Scan', 'Meeting Pace', 'Rhythm Together', 'Fist to Five'];
+
+  /* How to read the moment — shown alongside "why" during a run. */
+  var USE_GUIDANCE = {
+    Presence: 'If the room seems scattered or slow to arrive, that is information: consider a slower start.',
+    Attune: 'Whatever the group signals here is data for the meeting, not a problem to fix. Low capacity means adjust the plan, not the people.',
+    Connect: 'If the group struggles to coordinate, keep it light and move on. Nothing here needs to be done well.',
+    Energy: 'Whatever limit the group sets, the facilitator\u2019s job is to honor it visibly.'
+  };
+
+  /* ---------- storage wrapper (never throws) ---------- */
+  var storage = {
+    get: function (key) {
+      try { return window.localStorage.getItem(key); } catch (e) { return null; }
+    },
+    set: function (key, value) {
+      try { window.localStorage.setItem(key, value); return true; } catch (e) { return false; }
+    },
+    remove: function (key) {
+      try { window.localStorage.removeItem(key); } catch (e) { /* noop */ }
+    }
+  };
+
+  /* ---------- state ---------- */
+  var cards = [];
+  var byName = {};
+  var state = {
+    view: 'home',
+    mode: 'starter',          /* 'starter' | 'full' */
+    step: 0,
+    selections: [null, null, null, null],
+    runIndex: 0,
+    runSequence: [],
+    expandedSteps: {},        /* categories where "Browse more" was opened */
+    timer: { id: null, remaining: 0, total: 0, running: false },
+    sharedSequence: null,
+    lastImpactAnswer: null
+  };
+
+  function $(id) { return document.getElementById(id); }
+  function fullAccess() { return storage.get('paceFullAccess') === 'true'; }
+
+  /* ---------- data ---------- */
+  function loadCards() {
+    var el = $('pace-cards');
+    try {
+      cards = JSON.parse(el.textContent);
+    } catch (e) {
+      cards = [];
+    }
+    cards.forEach(function (c) { byName[c['Card Name']] = c; });
+  }
+
+  function starterCards(category) {
+    return STARTER_NAMES[category].map(function (n) { return byName[n]; }).filter(Boolean);
+  }
+
+  function categoryCards(category) {
+    return cards.filter(function (c) { return c.Category === category; });
+  }
+
+  function minutesLabel(totalSeconds) {
+    var m = Math.round(totalSeconds / 60 * 10) / 10;
+    if (totalSeconds < 60) return totalSeconds + ' seconds';
+    return (m % 1 === 0 ? m : m.toFixed(1)) + ' minute' + (m === 1 ? '' : 's');
+  }
+
+  /* ---------- view switching ---------- */
+  var GATED_VIEWS = { library: true, resources: true };
+
+  function showView(name, opts) {
+    opts = opts || {};
+    if (GATED_VIEWS[name] && !fullAccess()) {
+      /* Never a silent redirect: land on Organizations with an explanation. */
+      showView('organizations');
+      var msg = $('access-message');
+      if (msg) {
+        msg.textContent = name === 'resources'
+          ? 'The getting-started guide is part of Full Access. Enter your organization code, or ask Trauma Informed Oregon about access.'
+          : 'The full activity library is part of Full Access. Enter your organization code, or ask Trauma Informed Oregon about access.';
+      }
+      var code = $('access-code');
+      if (code) { code.focus(); }
+      return;
+    }
+
+    document.querySelectorAll('.view').forEach(function (v) { v.classList.remove('active'); });
+    var el = $('view-' + name);
+    if (!el) return;
+    el.classList.add('active');
+    state.view = name;
+    document.body.classList.toggle('run-active', name === 'run');
+
+    document.querySelectorAll('.site-nav button[data-view]').forEach(function (b) {
+      if (b.dataset.view === name) { b.setAttribute('aria-current', 'page'); }
+      else { b.removeAttribute('aria-current'); }
+    });
+    closeMenu();
+    if (!opts.keepScroll) { window.scrollTo(0, 0); }
+
+    if (name === 'organizations') { renderOrganizations(); }
+    if (name === 'library') { renderLibrary(); }
+    if (name === 'builder') { renderBuilder(); }
+    if (name === 'review') { renderReview(); }
+  }
+
+  function refreshAccessUI() {
+    var unlocked = fullAccess();
+    var tag = $('nav-resources-tag');
+    if (tag) { tag.hidden = unlocked; }
+    var status = $('access-status');
+    if (status) { status.hidden = !(unlocked && state.mode === 'full'); }
+  }
+
+  /* ---------- header / menu ---------- */
+  var menuButton = document.querySelector('.menu-button');
+  var siteNav = $('site-nav');
+  function closeMenu() {
+    if (!menuButton || !siteNav) return;
+    siteNav.classList.remove('open');
+    menuButton.setAttribute('aria-expanded', 'false');
+  }
+  if (menuButton && siteNav) {
+    menuButton.addEventListener('click', function () {
+      var open = siteNav.classList.toggle('open');
+      menuButton.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+
+  document.addEventListener('click', function (e) {
+    var viewBtn = e.target.closest('[data-view]');
+    if (viewBtn && !viewBtn.closest('.activity-option')) {
+      showView(viewBtn.dataset.view);
+    }
+  });
+
+  /* ---------- info buttons (Why? panels) ---------- */
+  document.querySelectorAll('.info-button[data-info]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var panel = $('home-info');
+      if (!panel) return;
+      var cat = btn.dataset.info.charAt(0).toUpperCase() + btn.dataset.info.slice(1);
+      var isOpen = !panel.hidden && panel.dataset.category === cat;
+
+      document.querySelectorAll('.info-button[data-info]').forEach(function (b) {
+        b.setAttribute('aria-expanded', 'false');
+      });
+
+      if (isOpen) {
+        panel.hidden = true;
+        panel.dataset.category = '';
+      } else {
+        panel.hidden = false;
+        panel.dataset.category = cat;
+        panel.innerHTML = '<p><strong>' + cat + '.</strong> ' + CATEGORY_WHY[cat] + '</p>';
+        btn.setAttribute('aria-expanded', 'true');
+        panel.scrollIntoView({ block: 'nearest' });
+      }
+    });
+  });
+
+  /* ---------- home actions ---------- */
+  function startBuilder(mode) {
+    state.mode = mode;
+    state.step = 0;
+    state.selections = [null, null, null, null];
+    state.expandedSteps = {};
+    refreshAccessUI();
+    showView('builder');
+  }
+
+  function runNamedSequence(names) {
+    state.runSequence = names.map(function (n) { return byName[n]; }).filter(Boolean);
+    if (state.runSequence.length !== 4) return;
+    startRun();
+  }
+
+  if ($('build-starter')) { $('build-starter').addEventListener('click', function () { startBuilder(fullAccess() ? 'full' : 'starter'); }); }
+  if ($('build-starter-secondary')) { $('build-starter-secondary').addEventListener('click', function () { startBuilder(fullAccess() ? 'full' : 'starter'); }); }
+  if ($('run-starter')) { $('run-starter').addEventListener('click', function () { runNamedSequence(DEFAULT_SEQUENCE); }); }
+  if ($('run-starter-board')) { $('run-starter-board').addEventListener('click', function () { runNamedSequence(DEFAULT_SEQUENCE); }); }
+
+  /* ---------- builder ---------- */
+  function builderPool(category) {
+    if (state.mode === 'full') { return categoryCards(category); }
+    var pool = starterCards(category);
+    if (state.expandedSteps[category] && fullAccess()) { pool = categoryCards(category); }
+    return pool;
+  }
+
+  function whyMarkup(card) {
+    return '<p>' + escapeHTML(card.Why) + '</p>' +
+      '<p class="why-use"><strong>Using what you notice</strong>' + escapeHTML(USE_GUIDANCE[card.Category] || '') + '</p>';
+  }
+
+  function renderBuilder() {
+    var category = CATEGORIES[state.step];
+    var page = document.querySelector('.builder-page');
+    if (page) { page.dataset.category = category.toLowerCase(); }
+
+    $('builder-step-label').textContent = 'Step ' + (state.step + 1) + ' of 4';
+    $('builder-title').textContent = 'Choose ' + (category === 'Energy' || category === 'Attune' ? 'an ' : 'a ') + category + ' activity';
+    $('builder-category-copy').textContent = CATEGORY_COPY[category];
+
+    var catInfo = $('category-info');
+    catInfo.hidden = true;
+    $('category-info-button').setAttribute('aria-expanded', 'false');
+    catInfo.innerHTML = '<p>' + CATEGORY_WHY[category] + '</p>';
+
+    document.querySelectorAll('.progress-step').forEach(function (stepEl, i) {
+      stepEl.classList.toggle('current', i === state.step);
+      stepEl.classList.toggle('done', !!state.selections[i] && i !== state.step);
+    });
+
+    var tools = $('full-library-tools');
+    var usingFullPool = state.mode === 'full' || (state.expandedSteps[category] && fullAccess());
+    tools.hidden = !usingFullPool;
+    if (tools.hidden) { $('library-search').value = ''; $('time-filter').value = 'all'; }
+
+    var more = $('more-activities');
+    more.hidden = usingFullPool || !fullAccess();
+    more.textContent = 'Browse all ' + category + ' activities';
+
+    renderActivityChoices();
+    updateBuilderFooter();
+  }
+
+  function renderActivityChoices() {
+    var category = CATEGORIES[state.step];
+    var list = $('activity-list');
+    var pool = builderPool(category);
+
+    var q = ($('library-search').value || '').trim().toLowerCase();
+    var t = $('time-filter').value;
+    if (!$('full-library-tools').hidden) {
+      pool = pool.filter(function (c) {
+        var okQ = !q || (c['Card Name'] + ' ' + c.Subtitle + ' ' + c.How).toLowerCase().indexOf(q) !== -1;
+        var okT = t === 'all' || c.Seconds <= parseInt(t, 10);
+        return okQ && okT;
+      });
+    }
+
+    list.innerHTML = '';
+    if (!pool.length) {
+      list.innerHTML = '<p class="empty-state">No activities match. Clear the search or time filter.</p>';
+      return;
+    }
+
+    pool.forEach(function (card) {
+      var selected = state.selections[state.step] === card['Card Name'];
+      var row = document.createElement('div');
+      row.className = 'activity-option ' + card.Category.toLowerCase() + (selected ? ' selected' : '');
+
+      var main = document.createElement('button');
+      main.type = 'button';
+      main.className = 'activity-main-button';
+      main.setAttribute('aria-pressed', selected ? 'true' : 'false');
+      main.innerHTML = '<strong><span class="activity-check" aria-hidden="true"></span>' + escapeHTML(card['Card Name']) + '</strong>' +
+        '<span class="instruction-preview">' + escapeHTML(card.Subtitle) + ' — ' + escapeHTML(firstLine(card.How)) + '</span>';
+      main.addEventListener('click', function () {
+        state.selections[state.step] = selected ? null : card['Card Name'];
+        renderActivityChoices();
+        updateBuilderFooter();
+        document.querySelectorAll('.progress-step').forEach(function (stepEl, i) {
+          stepEl.classList.toggle('done', !!state.selections[i] && i !== state.step);
+        });
+      });
+
+      var time = document.createElement('span');
+      time.className = 'activity-time';
+      time.textContent = card['Time Text'];
+
+      var whyBtn = document.createElement('button');
+      whyBtn.type = 'button';
+      whyBtn.className = 'activity-why-button';
+      whyBtn.textContent = 'Why?';
+      whyBtn.setAttribute('aria-expanded', 'false');
+
+      var why = document.createElement('div');
+      why.className = 'activity-why';
+      why.hidden = true;
+      why.innerHTML = whyMarkup(card);
+
+      whyBtn.addEventListener('click', function () {
+        why.hidden = !why.hidden;
+        whyBtn.setAttribute('aria-expanded', why.hidden ? 'false' : 'true');
+      });
+
+      row.appendChild(main);
+      row.appendChild(time);
+      row.appendChild(whyBtn);
+      row.appendChild(why);
+      list.appendChild(row);
+    });
+  }
+
+  function updateBuilderFooter() {
+    var count = state.selections.filter(Boolean).length;
+    $('builder-selected-count').textContent = count + ' of 4 selected';
+    var total = state.selections.reduce(function (sum, n) { return sum + (byName[n] ? byName[n].Seconds : 0); }, 0);
+    $('builder-total').textContent = total ? 'About ' + minutesLabel(total) : '0 minutes';
+
+    var next = $('builder-next');
+    var back = $('builder-back');
+    next.disabled = !state.selections[state.step];
+    next.textContent = state.step < 3 ? 'Continue to ' + CATEGORIES[state.step + 1] : 'Review sequence';
+    back.textContent = state.step === 0 ? 'Back to start' : 'Back to ' + CATEGORIES[state.step - 1];
+  }
+
+  $('builder-next').addEventListener('click', function () {
+    if (!state.selections[state.step]) return;
+    if (state.step < 3) { state.step += 1; renderBuilder(); window.scrollTo(0, 0); }
+    else { showView('review'); }
+  });
+
+  $('builder-back').addEventListener('click', function () {
+    if (state.step === 0) { showView('home'); }
+    else { state.step -= 1; renderBuilder(); window.scrollTo(0, 0); }
+  });
+
+  $('more-activities').addEventListener('click', function () {
+    state.expandedSteps[CATEGORIES[state.step]] = true;
+    renderBuilder();
+  });
+
+  $('library-search').addEventListener('input', renderActivityChoices);
+  $('time-filter').addEventListener('change', renderActivityChoices);
+
+  $('category-info-button').addEventListener('click', function () {
+    var panel = $('category-info');
+    panel.hidden = !panel.hidden;
+    this.setAttribute('aria-expanded', panel.hidden ? 'false' : 'true');
+  });
+
+  /* ---------- review ---------- */
+  function selectedCards() {
+    return state.selections.map(function (n) { return byName[n]; }).filter(Boolean);
+  }
+
+  function renderReview() {
+    var chosen = selectedCards();
+    if (chosen.length !== 4) { showView('builder'); return; }
+
+    var total = chosen.reduce(function (s, c) { return s + c.Seconds; }, 0);
+    $('review-total').textContent = 'Four activities · about ' + minutesLabel(total) + ' total.';
+
+    var list = $('review-list');
+    list.innerHTML = '';
+    chosen.forEach(function (card) {
+      var row = document.createElement('div');
+      row.className = 'review-row ' + card.Category.toLowerCase();
+      row.innerHTML = '<span class="review-letter" aria-hidden="true">' + card.Category.charAt(0) + '</span>' +
+        '<div><h2>' + escapeHTML(card['Card Name']) + '</h2><p>' + escapeHTML(card.Subtitle) + '</p></div>' +
+        '<time>' + escapeHTML(card['Time Text']) + '</time>';
+      list.appendChild(row);
+    });
+
+    $('save-sequence').textContent = fullAccess() ? 'Save to team sequences' : 'Save on this device';
+    $('share-sequence').hidden = !fullAccess();
+    $('review-device-note').textContent = fullAccess()
+      ? 'Team sequences are saved on this device; the share link carries the four activity names and nothing else. P.A.C.E. does not collect participation or wellness data.'
+      : 'Saved sequences stay on this device. P.A.C.E. does not collect participation or wellness data.';
+  }
+
+  $('start-run').addEventListener('click', function () {
+    state.runSequence = selectedCards();
+    if (state.runSequence.length === 4) { startRun(); }
+  });
+
+  $('save-sequence').addEventListener('click', function () {
+    var chosen = selectedCards();
+    if (chosen.length !== 4) return;
+    var saved = getSavedSequences();
+    saved.unshift({
+      names: chosen.map(function (c) { return c['Card Name']; }),
+      saved: new Date().toISOString(),
+      team: storage.get('paceTeamName') || ''
+    });
+    storage.set('paceSavedSequences', JSON.stringify(saved.slice(0, 20)));
+    this.textContent = 'Saved';
+    var btn = this;
+    setTimeout(function () {
+      btn.textContent = fullAccess() ? 'Save to team sequences' : 'Save on this device';
+    }, 1600);
+  });
+
+  $('share-sequence').addEventListener('click', function () {
+    var chosen = selectedCards();
+    if (chosen.length !== 4) return;
+    copyShareLink(chosen.map(function (c) { return c['Card Name']; }), this);
+  });
+
+  /* ---------- shared sequence links ---------- */
+  function encodeSequence(names) {
+    var payload = { v: 1, s: names, t: storage.get('paceTeamName') || '' };
+    return '#seq=' + btoa(unescape(encodeURIComponent(JSON.stringify(payload))));
+  }
+
+  function decodeSequenceHash() {
+    var h = window.location.hash || '';
+    if (h.indexOf('#seq=') !== 0) return null;
+    try {
+      var payload = JSON.parse(decodeURIComponent(escape(atob(h.slice(5)))));
+      if (!payload || payload.v !== 1 || !Array.isArray(payload.s) || payload.s.length !== 4) return null;
+      var ok = payload.s.every(function (n) { return !!byName[n]; });
+      return ok ? payload : null;
+    } catch (e) { return null; }
+  }
+
+  function copyShareLink(names, btn) {
+    var url = window.location.origin === 'null' || window.location.protocol === 'file:'
+      ? window.location.href.split('#')[0] + encodeSequence(names)
+      : window.location.href.split('#')[0] + encodeSequence(names);
+    var original = btn.textContent;
+    function done(msg) {
+      btn.textContent = msg;
+      setTimeout(function () { btn.textContent = original; }, 2000);
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(url).then(function () { done('Link copied'); }, function () { window.prompt('Copy this link:', url); done(original); });
+    } else {
+      window.prompt('Copy this link:', url);
+    }
+  }
+
+  function initSharedBanner() {
+    var payload = decodeSequenceHash();
+    if (!payload) return;
+    state.sharedSequence = payload;
+    var banner = $('shared-sequence-banner');
+    var summary = $('shared-sequence-summary');
+    var total = payload.s.reduce(function (s, n) { return s + byName[n].Seconds; }, 0);
+    summary.textContent = (payload.t ? payload.t + ' shared: ' : '') + payload.s.join(' · ') + ' — about ' + minutesLabel(total) + '.';
+    banner.hidden = false;
+
+    $('open-shared-sequence').addEventListener('click', function () {
+      state.selections = payload.s.slice();
+      state.mode = fullAccess() ? 'full' : 'starter';
+      banner.hidden = true;
+      showView('review');
+    });
+    $('save-shared-sequence').addEventListener('click', function () {
+      var saved = getSavedSequences();
+      saved.unshift({ names: payload.s.slice(), saved: new Date().toISOString(), team: payload.t || '' });
+      storage.set('paceSavedSequences', JSON.stringify(saved.slice(0, 20)));
+      this.textContent = 'Saved';
+      this.disabled = true;
+    });
+    $('dismiss-shared-sequence').addEventListener('click', function () {
+      banner.hidden = true;
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+    });
+  }
+
+  /* ---------- run mode ---------- */
+  function startRun() {
+    state.runIndex = 0;
+    showView('run');
+    renderRun();
+  }
+
+  function renderRun() {
+    var card = state.runSequence[state.runIndex];
+    if (!card) { finishRun(); return; }
+
+    $('run-progress-text').textContent = (state.runIndex + 1) + ' of ' + state.runSequence.length;
+    $('run-progress-fill').style.width = (((state.runIndex + 1) / state.runSequence.length) * 100) + '%';
+    $('run-category').textContent = card.Category + ' · ' + card.Subtitle;
+    $('run-title').textContent = card['Card Name'];
+    $('run-subtitle').textContent = card['Time Text'] + ' · Read aloud, do it, move on.';
+    $('run-instructions').textContent = card.How;
+
+    var why = $('run-why');
+    why.hidden = true;
+    why.innerHTML = '<h3>Why this works</h3>' + whyMarkup(card);
+    $('run-info-button').setAttribute('aria-expanded', 'false');
+
+    $('run-next').textContent = state.runIndex < state.runSequence.length - 1 ? 'Next activity' : 'Finish sequence';
+    resetTimer(card.Seconds);
+  }
+
+  $('run-info-button').addEventListener('click', function () {
+    var why = $('run-why');
+    why.hidden = !why.hidden;
+    this.setAttribute('aria-expanded', why.hidden ? 'false' : 'true');
+  });
+
+  $('run-next').addEventListener('click', function () {
+    state.runIndex += 1;
+    if (state.runIndex >= state.runSequence.length) { finishRun(); }
+    else { renderRun(); window.scrollTo(0, 0); }
+  });
+
+  $('run-skip').addEventListener('click', function () {
+    state.runIndex += 1;
+    if (state.runIndex >= state.runSequence.length) { finishRun(); }
+    else { renderRun(); window.scrollTo(0, 0); }
+  });
+
+  $('exit-run').addEventListener('click', function () {
+    stopTimer();
+    showView('home');
+  });
+
+  function finishRun() {
+    stopTimer();
+    state.lastImpactAnswer = null;
+    document.querySelectorAll('.fit-choice').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    document.querySelectorAll('.impact-choice').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+    $('fit-room-response').textContent = '';
+    $('impact-check-response').textContent = '';
+    showView('complete');
+  }
+
+  /* ---------- timer (never auto-advances the group) ---------- */
+  function formatTime(s) {
+    var m = Math.floor(s / 60);
+    var r = s % 60;
+    return (m < 10 ? '0' + m : m) + ':' + (r < 10 ? '0' + r : r);
+  }
+
+  function resetTimer(seconds) {
+    stopTimer();
+    state.timer.total = seconds;
+    state.timer.remaining = seconds;
+    $('timer-display').textContent = formatTime(seconds);
+    $('timer-label').textContent = minutesLabel(seconds) + ' suggested. The group stays here until you continue.';
+    $('timer-toggle').textContent = 'Start timer';
+    $('timer-announcer').textContent = '';
+  }
+
+  function stopTimer() {
+    if (state.timer.id) { clearInterval(state.timer.id); state.timer.id = null; }
+    state.timer.running = false;
+  }
+
+  $('timer-toggle').addEventListener('click', function () {
+    var btn = this;
+    if (state.timer.running) {
+      stopTimer();
+      btn.textContent = 'Resume timer';
+      return;
+    }
+    if (state.timer.remaining <= 0) { resetTimer(state.timer.total); }
+    state.timer.running = true;
+    btn.textContent = 'Pause timer';
+    state.timer.id = setInterval(function () {
+      state.timer.remaining -= 1;
+      if (state.timer.remaining <= 0) {
+        stopTimer();
+        $('timer-display').textContent = '00:00';
+        $('timer-label').textContent = 'Time. Continue when the group is ready.';
+        $('timer-announcer').textContent = 'Timer finished. Continue when the group is ready.';
+        btn.textContent = 'Restart timer';
+        return;
+      }
+      $('timer-display').textContent = formatTime(state.timer.remaining);
+    }, 1000);
+  });
+
+  /* ---------- complete: fit-the-room + optional impact check ---------- */
+  var FIT_RESPONSES = {
+    keep: 'Keep the plan. The group has what it needs today.',
+    slow: 'Slow the pace. Cover less, land more.',
+    drop: 'Drop something nonessential. Name it out loud so it is really dropped.',
+    stop: 'Set a stopping point now and honor it when it arrives.'
+  };
+
+  document.querySelectorAll('.fit-choice').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      document.querySelectorAll('.fit-choice').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+      btn.setAttribute('aria-pressed', 'true');
+      $('fit-room-response').textContent = FIT_RESPONSES[btn.dataset.fit] || '';
+    });
+  });
+
+  function getImpactLog() {
+    try {
+      var raw = storage.get('paceImpactLog');
+      var log = raw ? JSON.parse(raw) : null;
+      if (!log || typeof log !== 'object') { log = {}; }
+      return { yes: log.yes || 0, unsure: log.unsure || 0, no: log.no || 0, first: log.first || null, last: log.last || null };
+    } catch (e) {
+      return { yes: 0, unsure: 0, no: 0, first: null, last: null };
+    }
+  }
+
+  function saveImpactLog(log) {
+    storage.set('paceImpactLog', JSON.stringify(log));
+  }
+
+  document.querySelectorAll('.impact-choice').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var answer = btn.dataset.impact;
+      var log = getImpactLog();
+
+      /* Changing your answer replaces it rather than double counting. */
+      if (state.lastImpactAnswer && log[state.lastImpactAnswer] > 0) {
+        log[state.lastImpactAnswer] -= 1;
+      }
+      log[answer] = (log[answer] || 0) + 1;
+      var now = new Date().toISOString();
+      if (!log.first) { log.first = now; }
+      log.last = now;
+      saveImpactLog(log);
+      state.lastImpactAnswer = answer;
+
+      document.querySelectorAll('.impact-choice').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+      btn.setAttribute('aria-pressed', 'true');
+      $('impact-check-response').textContent = 'Noted on this device only. The running count lives under For Organizations.';
+    });
+  });
+
+  $('run-again').addEventListener('click', function () {
+    if (state.runSequence.length === 4) { startRun(); }
+  });
+  $('new-sequence').addEventListener('click', function () {
+    startBuilder(fullAccess() ? 'full' : 'starter');
+  });
+
+  /* ---------- organizations ---------- */
+  function getSavedSequences() {
+    try {
+      var raw = storage.get('paceSavedSequences');
+      var arr = raw ? JSON.parse(raw) : [];
+      return Array.isArray(arr) ? arr : [];
+    } catch (e) { return []; }
+  }
+
+  function renderOrganizations() {
+    var unlocked = fullAccess();
+    $('locked-access').hidden = unlocked;
+    $('unlocked-access').hidden = !unlocked;
+    refreshAccessUI();
+
+    var team = storage.get('paceTeamName') || '';
+    $('team-name-input').value = team;
+
+    renderSavedSequences();
+    renderImpactSummary();
+  }
+
+  function renderSavedSequences() {
+    var list = $('saved-sequences');
+    var empty = $('no-saved-sequences');
+    var saved = getSavedSequences();
+    list.innerHTML = '';
+    empty.hidden = saved.length > 0;
+
+    saved.forEach(function (item, index) {
+      var total = item.names.reduce(function (s, n) { return s + (byName[n] ? byName[n].Seconds : 0); }, 0);
+      var row = document.createElement('div');
+      row.className = 'saved-item';
+
+      var info = document.createElement('div');
+      var date = new Date(item.saved);
+      info.innerHTML = '<strong>' + item.names.map(escapeHTML).join(' · ') + '</strong>' +
+        '<small>' + (item.team ? escapeHTML(item.team) + ' · ' : '') + 'Saved ' + date.toLocaleDateString() + ' · about ' + minutesLabel(total) + '</small>';
+
+      var actions = document.createElement('div');
+      actions.className = 'saved-actions';
+
+      var runBtn = document.createElement('button');
+      runBtn.type = 'button';
+      runBtn.textContent = 'Run';
+      runBtn.addEventListener('click', function () { runNamedSequence(item.names); });
+
+      var copyBtn = document.createElement('button');
+      copyBtn.type = 'button';
+      copyBtn.textContent = 'Copy link';
+      copyBtn.addEventListener('click', function () { copyShareLink(item.names, copyBtn); });
+
+      var editBtn = document.createElement('button');
+      editBtn.type = 'button';
+      editBtn.textContent = 'Edit';
+      editBtn.addEventListener('click', function () {
+        state.selections = item.names.slice();
+        state.mode = fullAccess() ? 'full' : 'starter';
+        state.step = 0;
+        showView('builder');
+      });
+
+      var deleteBtn = document.createElement('button');
+      deleteBtn.type = 'button';
+      deleteBtn.textContent = 'Delete';
+      deleteBtn.addEventListener('click', function () {
+        var saved2 = getSavedSequences();
+        saved2.splice(index, 1);
+        storage.set('paceSavedSequences', JSON.stringify(saved2));
+        renderSavedSequences();
+      });
+
+      actions.appendChild(runBtn);
+      actions.appendChild(copyBtn);
+      actions.appendChild(editBtn);
+      actions.appendChild(deleteBtn);
+      row.appendChild(info);
+      row.appendChild(actions);
+      list.appendChild(row);
+    });
+  }
+
+  function renderImpactSummary() {
+    var log = getImpactLog();
+    var total = log.yes + log.unsure + log.no;
+    var stats = $('impact-stats');
+    var empty = $('impact-empty');
+    var actions = $('impact-summary-actions');
+
+    if (!total) {
+      stats.hidden = true;
+      stats.innerHTML = '';
+      empty.hidden = false;
+      actions.hidden = true;
+      return;
+    }
+
+    empty.hidden = true;
+    actions.hidden = false;
+    stats.hidden = false;
+    stats.innerHTML =
+      '<div class="impact-stat"><strong>' + total + '</strong><span>Check-ins on this device</span></div>' +
+      '<div class="impact-stat"><strong>' + log.yes + '</strong><span>Yes, keep doing this</span></div>' +
+      '<div class="impact-stat"><strong>' + log.unsure + '</strong><span>Not sure</span></div>' +
+      '<div class="impact-stat"><strong>' + log.no + '</strong><span>Not really</span></div>';
+  }
+
+  $('share-impact-summary').addEventListener('click', function () {
+    var log = getImpactLog();
+    var total = log.yes + log.unsure + log.no;
+    if (!total) return;
+    var team = storage.get('paceTeamName') || '';
+    var lines = [
+      'P.A.C.E. Starter Pack impact summary (sent by choice; device-local counts, no individual data)',
+      '',
+      team ? 'Team: ' + team : 'Team: (not set)',
+      'Check-ins recorded: ' + total,
+      '  Yes, keep doing this: ' + log.yes,
+      '  Not sure: ' + log.unsure,
+      '  Not really: ' + log.no,
+      log.first ? 'First check-in: ' + new Date(log.first).toLocaleDateString() : '',
+      log.last ? 'Most recent: ' + new Date(log.last).toLocaleDateString() : '',
+      '',
+      'Anything else you want TIO to know (optional):',
+      ''
+    ].filter(function (l) { return l !== null; });
+    var href = 'mailto:info@traumainformedoregon.org' +
+      '?subject=' + encodeURIComponent('P.A.C.E. impact summary') +
+      '&body=' + encodeURIComponent(lines.join('\n'));
+    window.location.href = href;
+  });
+
+  $('clear-impact-summary').addEventListener('click', function () {
+    if (window.confirm('Clear this device\u2019s check-in count? This cannot be undone.')) {
+      storage.remove('paceImpactLog');
+      renderImpactSummary();
+    }
+  });
+
+  $('unlock-button').addEventListener('click', function () {
+    var input = $('access-code');
+    var msg = $('access-message');
+    if ((input.value || '').trim().toUpperCase() === ACCESS_CODE) {
+      storage.set('paceFullAccess', 'true');
+      input.value = '';
+      msg.textContent = '';
+      renderOrganizations();
+    } else {
+      msg.textContent = 'That code was not recognized. Check it, or contact Trauma Informed Oregon.';
+    }
+  });
+
+  $('access-code').addEventListener('keydown', function (e) {
+    if (e.key === 'Enter') { $('unlock-button').click(); }
+  });
+
+  $('lock-full').addEventListener('click', function () {
+    storage.remove('paceFullAccess');
+    state.mode = 'starter';
+    renderOrganizations();
+  });
+
+  $('build-full').addEventListener('click', function () { startBuilder('full'); });
+  $('browse-full').addEventListener('click', function () { showView('library'); });
+  $('open-resources').addEventListener('click', function () { showView('resources'); });
+  $('open-resources-2').addEventListener('click', function () { showView('resources'); });
+  $('build-from-team').addEventListener('click', function () { startBuilder(fullAccess() ? 'full' : 'starter'); });
+
+  $('save-team-name').addEventListener('click', function () {
+    var value = ($('team-name-input').value || '').trim();
+    if (value) { storage.set('paceTeamName', value); }
+    else { storage.remove('paceTeamName'); }
+    var status = $('team-name-status');
+    status.style.color = 'var(--good)';
+    status.textContent = value ? 'Saved on this device.' : 'Cleared.';
+    setTimeout(function () { status.textContent = ''; }, 2200);
+  });
+
+  /* ---------- library ---------- */
+  function renderLibrary() {
+    var q = ($('all-search').value || '').trim().toLowerCase();
+    var cat = $('all-category').value;
+    var t = $('all-time').value;
+
+    var pool = cards.filter(function (c) {
+      var okQ = !q || (c['Card Name'] + ' ' + c.Subtitle + ' ' + c.How + ' ' + c.Why).toLowerCase().indexOf(q) !== -1;
+      var okC = cat === 'all' || c.Category === cat;
+      var okT = t === 'all' || c.Seconds <= parseInt(t, 10);
+      return okQ && okC && okT;
+    });
+
+    $('library-count').textContent = pool.length + ' of ' + cards.length + ' activities';
+
+    var list = $('library-list');
+    list.innerHTML = '';
+    pool.forEach(function (card) {
+      var item = document.createElement('article');
+      item.className = 'library-item ' + card.Category.toLowerCase();
+      item.innerHTML =
+        '<span class="library-item-category">' + card.Category + '</span>' +
+        '<div><h2>' + escapeHTML(card['Card Name']) + '</h2>' +
+        '<p>' + escapeHTML(card.Subtitle) + '</p>' +
+        '<details><summary>Instructions and why</summary>' +
+        '<p style="white-space:pre-line">' + escapeHTML(card.How) + '</p>' +
+        '<div class="activity-why">' + whyMarkup(card) + '</div>' +
+        '</details></div>' +
+        '<time>' + escapeHTML(card['Time Text']) + '</time>';
+      list.appendChild(item);
+    });
+  }
+
+  $('all-search').addEventListener('input', renderLibrary);
+  $('all-category').addEventListener('change', renderLibrary);
+  $('all-time').addEventListener('change', renderLibrary);
+  $('library-build').addEventListener('click', function () { startBuilder('full'); });
+
+  /* ---------- resources ---------- */
+  $('print-resources').addEventListener('click', function () { window.print(); });
+
+  /* ---------- helpers ---------- */
+  function escapeHTML(s) {
+    return String(s == null ? '' : s)
+      .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  }
+
+  function firstLine(how) {
+    var line = String(how || '').split('\n')[0];
+    line = line.replace(/^\d+\.\s*/, '');
+    return line.length > 110 ? line.slice(0, 107) + '…' : line;
+  }
+
+  /* ---------- unlock links ----------
+     TIO can place https://<host>/<file>#access=<CODE> behind its own
+     gate (access email, protected page). One click unlocks the device;
+     no code to type, no wall. The hash is scrubbed from the URL bar. */
+  function initAccessLink() {
+    var src = (window.location.hash || '') + '&' + (window.location.search || '');
+    var m = src.match(/[#?&]access=([^&]+)/);
+    if (m && decodeURIComponent(m[1]).trim().toUpperCase() === ACCESS_CODE) {
+      storage.set('paceFullAccess', 'true');
+      state.mode = 'full';
+      if (window.history && window.history.replaceState) {
+        window.history.replaceState(null, '', window.location.pathname + window.location.search.replace(/([?&])access=[^&]*&?/, '$1').replace(/[?&]$/, ''));
+      }
+    }
+  }
+
+  var copyUnlockBtn = $('copy-unlock-link');
+  if (copyUnlockBtn) {
+    copyUnlockBtn.addEventListener('click', function () {
+      var url = window.location.href.split('#')[0].split('?')[0] + '#access=' + ACCESS_CODE;
+      var btn = this, original = btn.textContent;
+      function done(msg) { btn.textContent = msg; setTimeout(function () { btn.textContent = original; }, 2000); }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function () { done('Unlock link copied'); }, function () { window.prompt('Copy this link:', url); });
+      } else { window.prompt('Copy this link:', url); }
+    });
+  }
+
+  /* ---------- init ---------- */
+  loadCards();
+  initAccessLink();
+  refreshAccessUI();
+  initSharedBanner();
+  showView('home', { keepScroll: true });
+})();
+  </script>
 </body>
 </html>
