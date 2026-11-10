@@ -205,9 +205,9 @@
     "category": "Attune",
     "section": "Core",
     "name": "Meeting Pace",
-    "subtitle": "Choosing today's pace",
-    "how": "Pick your pace for this meeting: 1 = sprint, 2 = steady, 3 = slow. On the count of 3, everyone holds up 1, 2, or 3 fingers, or types the number in chat. Notice where most of the group lands and use that as the meeting pace. No explanation needed.",
-    "why": "Shows the group’s available pace without asking anyone to explain or disclose anything.",
+    "subtitle": "Notice your starting pace",
+    "how": "Notice what pace feels workable for you as we begin. Choose 1 for quick, 2 for steady, or 3 for slow. If you want to share, show the number, say it, or type it in chat. You can keep your answer to yourself. Give the group a moment to notice the range of responses.",
+    "why": "Helps the group notice that people may need different paces. Sharing and explaining your choice are optional.",
     "timeText": "30 seconds",
     "seconds": 30
   },
@@ -271,11 +271,11 @@
     "category": "Energy",
     "section": "Starter",
     "name": "Fist to Five",
-    "subtitle": "Visible capacity",
-    "how": "Hold up a fist to five fingers to show how much is in the tank. The facilitator counts 3, 2, 1, show so everyone responds at the same time.",
-    "why": "Makes collective capacity visible without requiring explanation.",
-    "timeText": "30 seconds",
-    "seconds": 30
+    "subtitle": "Choose an adjustment the team can make",
+    "how": "Think about what you have available for the work ahead. A fist means very little capacity and five fingers means a lot. You can show, say, type, or keep your number to yourself. Then agree on one adjustment that would make the work more manageable, such as slowing the pace or moving a nonurgent item. If someone else needs to approve the change, decide who will follow up.",
+    "why": "Connects what people have available to a decision about how the team will work.",
+    "timeText": "90 seconds",
+    "seconds": 90
   },
   {
     "key": "Energy | One Thing Less",
@@ -338,7 +338,14 @@ function renderImpact(){const x=getImpact(),total=(x.yes||0)+(x.unsure||0)+(x.no
 $('copy-impact').addEventListener('click',async()=>{const x=getImpact(),total=x.yes+x.unsure+x.no;const t=`P.A.C.E. Starter Pack device-local sequence check-ins\nTotal sequences with an answer: ${total}\nYes, useful today: ${x.yes}\nNot sure yet: ${x.unsure}\nNot today: ${x.no}\n\nThese are optional sequence-level answers from one device, not individual participant outcomes. Interpret the pattern only after repeated use.`;try{await navigator.clipboard.writeText(t);$('impact-summary-response').textContent='Summary copied.'}catch(e){$('impact-summary-response').textContent='Copy was not available in this browser.'}});$('clear-impact').addEventListener('click',()=>{try{localStorage.removeItem('paceStarterImpact')}catch(e){}renderImpact();$('impact-summary-response').textContent='This device’s count was cleared.'});
 $('run-again').addEventListener('click',startRun);$('new-sequence').addEventListener('click',startBuilder);
 window.addEventListener('hashchange',()=>{const r=location.hash.slice(1)||'home'; if(['home','start','organizations','about','accessibility'].includes(r))route(r)});
-renderHome();renderImpact();const initial=location.hash.slice(1)||'home';if(initial!=='home'&&['start','organizations','about','accessibility'].includes(initial))route(initial);
+renderHome();
+renderImpact();
+const initial = location.hash.slice(1) || 'home';
+if (initial === 'run') {
+  startRun();
+} else if (['start', 'organizations', 'about', 'accessibility'].includes(initial)) {
+  route(initial);
+}
 })();</script>
 </body></html>
 
